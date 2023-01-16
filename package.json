@@ -1,0 +1,21 @@
+{
+  "name": "ecwid-webshop-api",
+  "version": "1.0.0",
+  "description": "express js api that connects to ecwid",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joseph Nasser",
+  "license": "MIT",
+  "dependencies": {
+    "@ecwid/sdk": "^0.3.0",
+    "axios": "^1.2.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
