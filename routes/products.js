@@ -54,68 +54,6 @@ router.get("/api/:storeId/products/filter", async (req, res) => {
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
   const api = new EcwidApiHelper(store_id, authorization);
-
-  // const queryKeys = [
-  //   "priceFrom",
-  //   "priceTo",
-  //   "categories",
-  //   "includeProductsFromSubcategories",
-  //   "sortBy",
-  //   "limit",
-  //   "offset",
-  //   "externalReferenceId",
-  //   "createdFrom",
-  //   "createdTo",
-  //   "updatedFrom",
-  //   "updatedTo",
-  //   "enabled",
-  //   "sku",
-  //   "productId",
-  //   "isGiftCard",
-  //   "discountsAllowed",
-  //   "baseUrl",
-  //   "cleanUrls",
-  //   "onsale",
-  //   "inventory",
-  //   "isCustomerSetPrice",
-  //   "visibleInStorefront",
-  //   "option_",
-  //   "attribute_",
-  // ];
-
-  // let route = "/products";
-
-  // for (let index in queryKeys) {
-  //   const key = queryKeys[index];
-  //   console.log(key);
-  //   if (req.query[key]) {
-  //     route += route.includes("?") ? "&" : "?";
-  //     route += key + "=" + req.query[key].replace(" ", "%20");
-  //   }
-
-  //   if (key === "option_") {
-  //     const optionKeys = Object.keys(req.query).filter(
-  //       (key) => key.indexOf("option_") === 0
-  //     );
-
-  //     optionKeys.forEach((optKey) => {
-  //       route += route.includes("?") ? "&" : "?";
-  //       route += optKey + "=" + req.query[optKey].replace(" ", "%20");
-  //     });
-  //   }
-
-  //   if (key === "attribute_") {
-  //     const attribKeys = Object.keys(req.query).filter(
-  //       (key) => key.indexOf("attribute_") === 0
-  //     );
-
-  //     attribKeys.forEach((attribKey) => {
-  //       route += route.includes("?") ? "&" : "?";
-  //       route += attribKey + "=" + req.query[attribKey].replace(" ", "%20");
-  //     });
-  //   }
-  // }
-
   const searchParams = new URLSearchParams(req.query).toString();
 
   try {
