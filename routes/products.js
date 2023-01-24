@@ -33,6 +33,7 @@ router.get("/api/:storeId/products/search", async (req, res) => {
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
   const api = new EcwidApiHelper(store_id, authorization);
+  const { keyword } = req.query;
 
   try {
     const product = await api.get("/products?keyword=" + keyword);
