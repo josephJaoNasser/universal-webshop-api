@@ -15,6 +15,6 @@
 
 ## Categories
 - **Get all categories** : ```/categories``` (refer to the API docs for the list of queries)
-- **Get category by path** : ```/categories/path?path={path}&delimiter={delimiter}```
+- **Get category by path** : ```/categories/path?path={path}&delimiter={delimiter}``` (refer to the API for additional queries)
 - **Sort subcategories within a category** : ```/categories/sort?parentCategory={id}```
 - **Get single category** : ```/categories/{id}```
