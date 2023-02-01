@@ -1,7 +1,18 @@
-const axios = require("axios");
+import axios from 'axios'
 
-class ApiHelper {
-  constructor(storeID, token) {
+type AuthConfig = {
+  headers: {
+    Authorization: string
+  }
+}
+
+class EcwidApiHelper {
+  baseURL: string;
+  storeID: string;
+  token: string;
+  config: AuthConfig;
+
+  constructor(storeID: string, token: string) {
     this.storeID = storeID;
     this.token = token;
     this.baseURL = "https://app.ecwid.com/api/v3/" + storeID;
@@ -12,7 +23,7 @@ class ApiHelper {
     };
   }
 
-  get(route, id) {
+  get(route, id?) {
     return axios.get(
       `${this.baseURL}${route}` + (id ? "/" + id : ""),
       this.config
@@ -32,4 +43,4 @@ class ApiHelper {
   }
 }
 
-module.exports = ApiHelper;
+export default EcwidApiHelper

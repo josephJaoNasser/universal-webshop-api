@@ -1,6 +1,6 @@
-const e = require("express");
-const express = require("express");
-const EcwidApiHelper = require("../helpers/EcwidApiHelper");
+import express from "express";
+import EcwidApiHelper from "../helpers/EcwidApiHelper";
+
 const router = express.Router();
 
 /***
@@ -11,13 +11,17 @@ router.get("/api/:storeId/products", async (req, res) => {
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
 
+  if (!authorization) {
+    return res.status(403).send();
+  }
+
   const api = new EcwidApiHelper(store_id, authorization);
 
   try {
     const products = await api.get("/products");
 
     return res.status(200).send(products.data);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return res
       .status(e?.response?.status || 404)
@@ -32,6 +36,11 @@ router.get("/api/:storeId/products", async (req, res) => {
 router.get("/api/:storeId/products/search", async (req, res) => {
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(403).send();
+  }
+
   const api = new EcwidApiHelper(store_id, authorization);
   const { keyword } = req.query;
 
@@ -39,7 +48,7 @@ router.get("/api/:storeId/products/search", async (req, res) => {
     const product = await api.get("/products?keyword=" + keyword);
 
     return res.status(200).send(product.data);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return res
       .status(e?.response?.status || 404)
@@ -54,6 +63,11 @@ router.get("/api/:storeId/products/search", async (req, res) => {
 router.get("/api/:storeId/products/filter", async (req, res) => {
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(403).send();
+  }
+
   const api = new EcwidApiHelper(store_id, authorization);
   const searchParams = new URLSearchParams(req.query).toString();
 
@@ -61,7 +75,7 @@ router.get("/api/:storeId/products/filter", async (req, res) => {
     const products = await api.get("/products?" + searchParams);
 
     return res.status(200).send(products.data);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return res
       .status(e?.response?.status || 404)
@@ -77,13 +91,18 @@ router.get("/api/:storeId/products/:id", async (req, res) => {
   const id = req.params.id;
   const store_id = req.params.storeId;
   const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(403).send();
+  }
+
   const api = new EcwidApiHelper(store_id, authorization);
 
   try {
     const product = await api.get("/products", id);
 
     return res.status(200).send(product.data);
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return res
       .status(e?.response?.status || 404)
@@ -97,4 +116,4 @@ router.patch("/api/:storeId/products/:id", async (req, res) => {});
 
 router.delete("/api/:storeId/products/:id", async (req, res) => {});
 
-module.exports = router;
+export default router;
