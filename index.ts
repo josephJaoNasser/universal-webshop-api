@@ -5,6 +5,10 @@ const app: Express = express();
 dotenv.config();
 
 // ==== MIDDLEWARE ==== //
+import bodyParser from "body-parser";
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // ==== SERVER CONNECTION TEST ==== //
 import ping from "./routes/ping";
