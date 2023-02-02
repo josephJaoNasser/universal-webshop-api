@@ -1,5 +1,6 @@
 import express from "express";
-import EcwidApiHelper from "../helpers/EcwidApiHelper";
+import getProductData from "../controllers/getProductData";
+import getStoreInfo from "../helpers/getStoreInfo";
 
 const router = express.Router();
 
@@ -7,25 +8,21 @@ const router = express.Router();
  * @method get
  * @desc get all products
  */
-router.get("/api/:storeId/products", async (req, res) => {
-  const store_id = req.params.storeId;
-  const { authorization } = req.headers;
+router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-  if (!authorization) {
-    return res.status(403).send();
-  }
-
-  const api = new EcwidApiHelper(store_id, authorization);
+  const payload = {
+    route: req.route,
+    credentials: req.body.credentials,
+    queries: req.query,
+    storeInfo,
+  };
 
   try {
-    const products = await api.get("/products");
-
-    return res.status(200).send(products.data);
-  } catch (e: any) {
-    console.log(e);
-    return res
-      .status(e?.response?.status || 404)
-      .send(e?.message || "Failed to fetch (404)");
+    const data = await getProductData(payload);
+    return res.status(200).send(data);
+  } catch (e) {
+    return res.status(404).send(e);
   }
 });
 
@@ -34,86 +31,61 @@ router.get("/api/:storeId/products", async (req, res) => {
  * @desc search for a product by keyword/s
  */
 router.get("/api/:storeId/products/search", async (req, res) => {
-  const store_id = req.params.storeId;
-  const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(403).send();
-  }
-
-  const api = new EcwidApiHelper(store_id, authorization);
-  const { keyword } = req.query;
-
-  try {
-    const product = await api.get("/products?keyword=" + keyword);
-
-    return res.status(200).send(product.data);
-  } catch (e: any) {
-    console.log(e);
-    return res
-      .status(e?.response?.status || 404)
-      .send(e?.message || "Failed to fetch (404)");
-  }
 });
 
-/***
- * @method get
- * @desc filter products (see ecwid api docs)
- */
-router.get("/api/:storeId/products/filter", async (req, res) => {
-  const store_id = req.params.storeId;
-  const { authorization } = req.headers;
+// /***
+//  * @method get
+//  * @desc filter products (see ecwid api docs)
+//  */
+// router.get("/api/:storeId/products/filter", async (req, res) => {
+//   const store_id = req.params.storeId;
+//   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(403).send();
-  }
+//   if (!authorization) {
+//     return res.status(403).send();
+//   }
 
-  const api = new EcwidApiHelper(store_id, authorization);
-  const searchParams = new URLSearchParams(req.query).toString();
+//   const api = new EcwidApiHelper(store_id, authorization);
+//   const searchParams = new URLSearchParams(req.query).toString();
 
-  try {
-    const products = await api.get("/products?" + searchParams);
+//   try {
+//     const products = await api.get("/products?" + searchParams);
 
-    return res.status(200).send(products.data);
-  } catch (e: any) {
-    console.log(e);
-    return res
-      .status(e?.response?.status || 404)
-      .send(e?.message || "Failed to fetch (404)");
-  }
-});
+//     return res.status(200).send(products.data);
+//   } catch (e: any) {
+//     console.log(e);
+//     return res
+//       .status(e?.response?.status || 404)
+//       .send(e?.message || "Failed to fetch (404)");
+//   }
+// });
 
-/***
- * @method get
- * @desc get a product by id
- */
-router.get("/api/:storeId/products/:id", async (req, res) => {
-  const id = req.params.id;
-  const store_id = req.params.storeId;
-  const { authorization } = req.headers;
+// /***
+//  * @method get
+//  * @desc get a product by id
+//  */
+// router.get("/api/:storeId/products/:id", async (req, res) => {
+//   const id = req.params.id;
+//   const store_id = req.params.storeId;
+//   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(403).send();
-  }
+//   if (!authorization) {
+//     return res.status(403).send();
+//   }
 
-  const api = new EcwidApiHelper(store_id, authorization);
+//   const api = new EcwidApiHelper(store_id, authorization);
 
-  try {
-    const product = await api.get("/products", id);
+//   try {
+//     const product = await api.get("/products", id);
 
-    return res.status(200).send(product.data);
-  } catch (e: any) {
-    console.log(e);
-    return res
-      .status(e?.response?.status || 404)
-      .send(e?.message || "Failed to fetch (404)");
-  }
-});
-
-router.post("/api/:storeId/products", async (req, res) => {});
-
-router.patch("/api/:storeId/products/:id", async (req, res) => {});
-
-router.delete("/api/:storeId/products/:id", async (req, res) => {});
+//     return res.status(200).send(product.data);
+//   } catch (e: any) {
+//     console.log(e);
+//     return res
+//       .status(e?.response?.status || 404)
+//       .send(e?.message || "Failed to fetch (404)");
+//   }
+// });
 
 export default router;

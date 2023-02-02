@@ -1,3 +1,5 @@
+import { Image, Translations } from "./generalTypes";
+
 interface ProductBasicData {
   id: String;
   sku: String;
@@ -19,17 +21,8 @@ interface ProductBasicData {
   quantity: Number;
   categories: Number[];
   fileAttatchments: FileAttatchments[];
-  images: ProductImage[];
-}
-
-interface ProductImage {
-  id: String;
-  src: String;
-  alt: String;
-}
-
-interface Translations {
-  [key: string]: String;
+  images: Image[];
+  thumbnail: string;
 }
 
 interface Dimensions {
@@ -44,10 +37,7 @@ interface FileAttatchments {
   url: String;
 }
 
-interface ProductOptions {
-  
-}
-
 export interface StandardizedProduct extends ProductBasicData {
   variations: ProductBasicData[];
+  rawData: Object;
 }

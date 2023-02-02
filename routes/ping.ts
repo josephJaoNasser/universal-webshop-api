@@ -1,5 +1,5 @@
 import express from "express";
-const router = express.Router()
+const router = express.Router();
 
 router.get("/api/ping", (req, res) => {
   return res
@@ -9,4 +9,4 @@ router.get("/api/ping", (req, res) => {
     );
 });
 
-export default router
+export default router;
