@@ -66,12 +66,18 @@ const EcwidTranslator = {
      */
     translateMultiple: (
       rawData: EcwidMultiItemResponse<EcwidProductType>
-    ): StandardizedProduct[] => {
+    ): StandardMultiItemResponse<StandardizedProduct> => {
       const standardizedProductArr: StandardizedProduct[] = rawData.items.map(
         (item) => EcwidTranslator.Product.translateSingle(item)
       );
 
-      return standardizedProductArr;
+      return {
+        count: rawData.count,
+        limit: rawData.limit,
+        offset: rawData.offset,
+        total: rawData.total,
+        items: standardizedProductArr,
+      };
     },
   },
   Category: {
