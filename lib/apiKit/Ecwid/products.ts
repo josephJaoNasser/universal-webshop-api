@@ -16,7 +16,7 @@ class EcwidProducts extends RouteConfig {
 
   /**
    * @description search for products using keywords
-   * @queryParam ```keyword``` Search term. Add an asterisk symbol at the end of keyword to disable exact match search. Ecwid searches products over multiple languages and fields:
+   * @param keyword Search term. Add an asterisk symbol at the end of keyword to disable exact match search. Ecwid searches products over multiple languages and fields:
     - title
     - description
     - SKU

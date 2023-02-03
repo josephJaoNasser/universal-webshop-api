@@ -18,11 +18,11 @@ class EcwidCategories extends RouteConfig {
    * Search categories in a store catalog by their path. The response provides basic details of found categories.
    *
    * The method returns a list of categories with the specified path, sorted in ascending order of the category's internal ID. The search is case insensitive.
-   *
-   * @queryParam ```path``` A category path where elements are separated by a delimiter. Spaces around the delimiter and empty path elements are ignored
-   * @queryParam ```delimiter``` A string of 1 or more characters used as path element separator
-   * @queryParam ```offset``` Offset from the beginning of the returned items list (for paging)
-   * @queryParam ```limit``` Maximum number of returned items. Maximum allowed value: 100. Default value: 100
+   * 
+   * @param path A category path where elements are separated by a delimiter. Spaces around the delimiter and empty path elements are ignored
+   * @param delimiter A string of 1 or more characters used as path element separator
+   * @param offset Offset from the beginning of the returned items list (for paging)
+   * @param limit Maximum number of returned items. Maximum allowed value: 100. Default value: 100
    * */
   async getByPath() {}
 
