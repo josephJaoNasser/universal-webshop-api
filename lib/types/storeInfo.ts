@@ -1,6 +1,6 @@
 interface StoreInfo {
   id: string | number;
   storeId: string | number;
-  storeUrl: string;
+  storeUrl?: string;
   source: string;
 }
