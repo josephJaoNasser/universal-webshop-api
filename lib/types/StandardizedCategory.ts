@@ -1,6 +1,6 @@
 import { Image } from "./generalTypes";
 
-interface Category {
+interface StandardizedCategory {
   id: string;
   name: string;
   url: string;
@@ -11,4 +11,4 @@ interface Category {
   product_count: number;
 }
 
-export default Category
+export default StandardizedCategory;
