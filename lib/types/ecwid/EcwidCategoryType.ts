@@ -1,3 +1,5 @@
+import { Translations } from "../generalTypes";
+
 export default interface EcwidCategoryType {
   id: number;
   parentId: number;
@@ -26,6 +28,3 @@ interface ImageDetails {
   height: number;
 }
 
-interface Translations {
-  [key: string]: string;
-}

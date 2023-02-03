@@ -1,14 +1,14 @@
 export interface Image {
-  id: String;
-  src: String;
-  alt: String;
+  id?: string | number;
+  src: string;
+  alt?: string;
 }
 
 export interface Translations {
   name: {
-    [key: string]: String;
+    [key: string]: string;
   };
   description?: {
-    [key: string]: String;
+    [key: string]: string;
   };
 }

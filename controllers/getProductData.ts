@@ -1,5 +1,6 @@
 import EcwidApi, { EcwidCredential } from "../lib/apiKit/Ecwid";
 import { WoocommerceCredential } from "../lib/apiKit/Woocommerce";
+import EcwidTranslator from "../lib/translationKit/ecwid";
 
 interface Credentials extends WoocommerceCredential, EcwidCredential {}
 
@@ -26,8 +27,10 @@ export default async function getProductData({
       try {
         const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
         const data = await Ecwid.Products.getAll();
-
-        return data;
+        const standardizedData =
+          EcwidTranslator.Product.translateMultiple(data);
+          
+        return standardizedData;
       } catch (e: any) {
         throw e;
       }
