@@ -83,8 +83,8 @@ const EcwidTranslator = {
     translateSingle: (rawData: EcwidCategoryType) => {},
 
     /**
-     * @description accepts a multi-product response from ecwid and converts each item into the standardized format
-     * @param rawData - raw data from the ecwid multi-product response
+     * @description accepts a multi-category response from ecwid and converts each item into the standardized format
+     * @param rawData - raw data from the ecwid multi-category response
      * @returns array of standardized category
      */
     translateMultiple: (
