@@ -69,7 +69,7 @@ interface StandardizedProduct {
   name: string;
   url: string;
   description: string;
-  translations: Translations // type is defined below;
+  translation?s: Translations // type is defined below;
   short_description: string;
   current_price: number;
   regular_price: number;
@@ -83,7 +83,7 @@ interface StandardizedProduct {
   related_product_ids: string[] | number[];
   quantity: number;
   categories: number[];
-  fileAttatchments: FileAttatchments[] // type is defined below;
+  fileAttachments: FileAttachments[] // type is defined below;
   images: Image[]; // type is defined below
   rawData: any; // the raw data before standardization
 }
@@ -98,7 +98,7 @@ interface Dimensions {
   height: string | number;
 }
 
-interface FileAttatchments {
+interface FileAttachments {
   id: string | number;
   name?: string;
   description?: string;
@@ -111,6 +111,16 @@ interface Image {
   src: string;
   alt?: string;
 }
+
+interface Translations {
+  name: {
+    [key: string]: string;
+  };
+  description?: {
+    [key: string]: string;
+  };
+}
+
 ```
 
 ### Multiple Products
@@ -145,14 +155,15 @@ Below is a typescript definion of the expected response along with their types.
 
 ```typescript
 interface StandardizedCategory {
-  id: string;
+  id: string | number;
   name: string;
   url: string;
   description: string;
-  parent_id: string;
-  image: Image; // defined below
-  order: number;
+  parent_id: string | number;
+  image: string;
+  order?: number;
   product_count: number;
+  translations?: Translations; // defined below
 }
 ```
 
@@ -164,6 +175,16 @@ interface Image {
   src: string;
   alt?: string;
 }
+
+interface Translations {
+  name: {
+    [key: string]: string;
+  };
+  description?: {
+    [key: string]: string;
+  };
+}
+
 ```
 
 ### Multiple Categories
