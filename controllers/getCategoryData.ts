@@ -18,23 +18,31 @@ export default async function getCategoryData({
   storeInfo,
   queries,
 }: Params) {
-  switch (storeInfo.source) {
-    case "ecwid":
-      if (!credentials.token) {
-        throw new Error("No token provided");
-      }
+  /**
+   * Ecwid
+   */
+  if (storeInfo.source === "ecwid") {
+    if (!credentials.token) {
+      throw new Error("No token provided");
+    }
 
-      try {
-        const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
-        const data = await Ecwid.Categories.getAll();
+    try {
+      const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
+      const data = await Ecwid.Categories.getAll();
 
-        return data;
-      } catch (e: any) {
-        throw e;
-      }
-    case "woocommerce":
-      return;
-    default:
-      return;
+      return data;
+    } catch (e: any) {
+      throw e;
+    }
   }
+
+  /**
+   * Woocommerce
+   */
+  if(storeInfo.source === "woocommerce") {
+    // woocommerce functions here
+    // make sure to return inside the if statements
+  }
+
+  return
 }
