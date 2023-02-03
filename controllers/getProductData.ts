@@ -1,12 +1,22 @@
-import EcwidApi, { EcwidCredential } from "../lib/apiKit/Ecwid";
-import { WoocommerceCredential } from "../lib/apiKit/Woocommerce";
-import EcwidTranslator from "../lib/translationKit/ecwid";
+import EcwidApi, { EcwidCredential, EcwidProducts } from "../lib/apiKit/Ecwid";
+import WoocommerceApi, {
+  WoocommerceCredential,
+  WoocommerceProducts,
+} from "../lib/apiKit/Woocommerce";
+
+import StandardizedProduct from "../lib/types/StandardizedProduct";
 
 interface Credentials extends WoocommerceCredential, EcwidCredential {}
 
+type ProductResponse =
+  | StandardizedProduct
+  | StandardMultiItemResponse<StandardizedProduct>;
+
 interface Params {
+  method: string;
   credentials: Credentials;
   storeInfo: StoreInfo;
+  id?: string | number;
   queries?: any;
 }
 
@@ -14,9 +24,11 @@ interface Params {
  * @description get data based on store info
  */
 export default async function getProductData({
+  method,
   credentials,
   storeInfo,
   queries,
+  id,
 }: Params) {
   /**
    * Ecwid
@@ -28,8 +40,10 @@ export default async function getProductData({
 
     try {
       const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
-      const data = await Ecwid.Products.getAll();
-      const standardizedData = EcwidTranslator.Product.translateMultiple(data);
+      const standardizedData: ProductResponse = await Ecwid.Products[method]({
+        queries,
+        id,
+      });
 
       return standardizedData;
     } catch (e: any) {

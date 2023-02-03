@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import express from "express";
 import getProductData from "../controllers/getProductData";
 import getStoreInfo from "../helpers/getStoreInfo";
+import StandardizedProduct from "../lib/types/StandardizedProduct";
 
 const router = express.Router();
 
@@ -13,21 +14,23 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload = {
-    route: req.route,
+    method: "getAll",
     credentials: req.body.credentials,
     queries: req.query,
     storeInfo,
   };
 
   try {
-    const data = await getProductData(payload);
+    const data = (await getProductData(
+      payload
+    )) as StandardMultiItemResponse<StandardizedProduct>;
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
     console.log({ err });
     return res
       .status(err.response?.status || 404)
-      .send(err.message || "Error when fetching products");
+      .send(err.response?.data || "Error when fetching products");
   }
 });
 
@@ -35,60 +38,82 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
  * @method get
  * @desc search for a product by keyword/s
  */
-router.get("/api/:storeId/products/search", async (req, res) => {});
+router.get("/api/:storeId/products/search", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-// /***
-//  * @method get
-//  * @desc filter products (see ecwid api docs)
-//  */
-// router.get("/api/:storeId/products/filter", async (req, res) => {
-//   const store_id = req.params.storeId;
-//   const { authorization } = req.headers;
+  const payload = {
+    method: "searchByKeywords",
+    credentials: req.body.credentials,
+    queries: req.query,
+    storeInfo,
+  };
 
-//   if (!authorization) {
-//     return res.status(403).send();
-//   }
+  try {
+    const data = (await getProductData(
+      payload
+    )) as StandardMultiItemResponse<StandardizedProduct>;
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching products");
+  }
+});
 
-//   const api = new EcwidApiHelper(store_id, authorization);
-//   const searchParams = new URLSearchParams(req.query).toString();
+/***
+ * @method get
+ * @desc filter products (see ecwid api docs)
+ */
+router.get("/api/:storeId/products/filter", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-//   try {
-//     const products = await api.get("/products?" + searchParams);
+  const payload = {
+    method: "searchByFilters",
+    credentials: req.body.credentials,
+    queries: req.query,
+    storeInfo,
+  };
 
-//     return res.status(200).send(products.data);
-//   } catch (e: any) {
-//     console.log(e);
-//     return res
-//       .status(e?.response?.status || 404)
-//       .send(e?.message || "Failed to fetch (404)");
-//   }
-// });
+  try {
+    const data = (await getProductData(
+      payload
+    )) as StandardMultiItemResponse<StandardizedProduct>;
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching products");
+  }
+});
 
-// /***
-//  * @method get
-//  * @desc get a product by id
-//  */
-// router.get("/api/:storeId/products/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const store_id = req.params.storeId;
-//   const { authorization } = req.headers;
+/***
+ * @method get
+ * @desc get a product by id
+ */
+router.get("/api/:storeId/products/:id", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-//   if (!authorization) {
-//     return res.status(403).send();
-//   }
+  const payload = {
+    method: "getById",
+    credentials: req.body.credentials,
+    id: req.params.id,
+    storeInfo,
+  };
 
-//   const api = new EcwidApiHelper(store_id, authorization);
-
-//   try {
-//     const product = await api.get("/products", id);
-
-//     return res.status(200).send(product.data);
-//   } catch (e: any) {
-//     console.log(e);
-//     return res
-//       .status(e?.response?.status || 404)
-//       .send(e?.message || "Failed to fetch (404)");
-//   }
-// });
+  try {
+    const data = (await getProductData(payload)) as StandardizedProduct;
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching products");
+  }
+});
 
 export default router;

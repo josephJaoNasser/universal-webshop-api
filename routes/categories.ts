@@ -1,121 +1,117 @@
+import { AxiosError } from "axios";
 import express from "express";
 import getCategoryData from "../controllers/getCategoryData";
 import getStoreInfo from "../helpers/getStoreInfo";
+import StandardizedCategory from "../lib/types/StandardizedCategory";
 
 const router = express.Router();
 
 /***
  * @method get
- * @desc get all products
+ * @desc get all categories
  */
 router.get("/api/:storeId/categories", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload = {
-    route: req.route,
+    method: "getAll",
     credentials: req.body.credentials,
     queries: req.query,
     storeInfo,
   };
 
   try {
-    const data = await getCategoryData(payload);
+    const data = (await getCategoryData(
+      payload
+    )) as StandardMultiItemResponse<StandardizedCategory>;
     return res.status(200).send(data);
-  } catch (e) {
-    return res.status(404).send(e);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching categories");
   }
 });
 
-// /***
-//  * @method get
-//  * @desc get categories by category path
-//  */
-// router.get("/api/:storeId/categories/path", async (req, res) => {
-//   const store_id = req.params.storeId;
-//   const { authorization } = req.headers;
+/***
+ * @method get
+ * @desc get categories by category path
+ */
+router.get("/api/:storeId/categories/path", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-//   if (!authorization) {
-//     return res.status(403).send();
-//   }
+  const payload = {
+    method: "getByPath",
+    credentials: req.body.credentials,
+    queries: req.query,
+    storeInfo,
+  };
 
-//   if (!req.query.path) {
-//     return res.status(400).send("Invalid path");
-//   }
+  try {
+    const data = (await getCategoryData(
+      payload
+    )) as StandardMultiItemResponse<StandardizedCategory>;
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching categories");
+  }
+});
 
-//   if (!req.query.delimiter) {
-//     return res
-//       .status(400)
-//       .send("Provide the delimiter you are using to separate your categories");
-//   }
+/***
+ * @method get
+ * @desc get category order
+ */
+router.get("/api/:storeId/categories/sort", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-//   const api = new EcwidApiHelper(store_id, authorization);
-//   const searchParams = new URLSearchParams(req.query).toString();
+  const payload = {
+    method: "getSorted",
+    credentials: req.body.credentials,
+    queries: req.query,
+    storeInfo,
+  };
 
-//   try {
-//     const category = await api.get("/categories?" + searchParams);
+  try {
+    const data = (await getCategoryData(payload)) as number[];
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching categories");
+  }
+});
 
-//     return res.status(200).send(category.data);
-//   } catch (e: any) {
-//     console.log(e);
-//     return res
-//       .status(e?.response?.status || 404)
-//       .send(e?.message || "Failed to fetch (404)");
-//   }
-// });
+/***
+ * @method get
+ * @desc get categories by id
+ */
+router.get("/api/:storeId/categories/:id", getStoreInfo, async (req, res) => {
+  const storeInfo = req["store_info"] as StoreInfo;
 
-// /***
-//  * @method get
-//  * @desc get category order
-//  */
-// router.get("/api/:storeId/categories/sort", async (req, res) => {
-//   const store_id = req.params.storeId;
-//   const { authorization } = req.headers;
-//   const { parentCategory } = req.query;
+  const payload = {
+    method: "getById",
+    credentials: req.body.credentials,
+    id: req.params.id,
+    storeInfo,
+  };
 
-//   if (!authorization) {
-//     return res.status(403).send();
-//   }
-
-//   const api = new EcwidApiHelper(store_id, authorization);
-
-//   try {
-//     const category = await api.get(
-//       "/categories/sort?parentCategory=" + parentCategory
-//     );
-
-//     return res.status(200).send(category.data);
-//   } catch (e: any) {
-//     console.log(e);
-//     return res
-//       .status(e?.response?.status || 404)
-//       .send(e?.message || "Failed to fetch (404)");
-//   }
-// });
-
-// /***
-//  * @method get
-//  * @desc get categories by id
-//  */
-// router.get("/api/:storeId/categories/:id", async (req, res) => {
-//   const store_id = req.params.storeId;
-//   const { authorization } = req.headers;
-
-//   if (!authorization) {
-//     return res.status(403).send();
-//   }
-
-//   const api = new EcwidApiHelper(store_id, authorization);
-
-//   try {
-//     const category = await api.get("/categories", id);
-
-//     return res.status(200).send(category.data);
-//   } catch (e: any) {
-//     console.log(e);
-//     return res
-//       .status(e?.response?.status || 404)
-//       .send(e?.message || "Failed to fetch (404)");
-//   }
-// });
+  try {
+    const data = (await getCategoryData(payload)) as StandardizedCategory;
+    return res.status(200).send(data);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.response?.data || "Error when fetching categories");
+  }
+});
 
 export default router;

@@ -6,7 +6,7 @@ interface ProductBasicData {
   name: string;
   url: string;
   description: string;
-  translations: Translations;
+  translations?: Translations;
   short_description: string;
   current_price: number;
   regular_price: number;
@@ -20,7 +20,7 @@ interface ProductBasicData {
   related_product_ids: string[] | number[];
   quantity: number;
   categories: number[];
-  fileAttatchments: FileAttatchments[];
+  fileAttachments: FileAttachments[];
   images: Image[];
   rawData: any;
 }
@@ -31,7 +31,7 @@ interface Dimensions {
   height: string | number;
 }
 
-export interface FileAttatchments {
+export interface FileAttachments {
   id: string | number;
   name?: string;
   description?: string;

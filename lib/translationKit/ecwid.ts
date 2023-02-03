@@ -2,9 +2,10 @@ import EcwidProductType from "../types/ecwid/EcwidProductType";
 import EcwidCategoryType from "../types/ecwid/EcwidCategoryType";
 import EcwidMultiItemResponse from "../types/ecwid/EcwidMultiItemResponse";
 import StandardizedProduct, {
-  FileAttatchments,
+  FileAttachments,
 } from "../types/StandardizedProduct";
 import { Image } from "../types/generalTypes";
+import StandardizedCategory from "../types/StandardizedCategory";
 
 const EcwidTranslator = {
   Product: {
@@ -37,8 +38,8 @@ const EcwidTranslator = {
         related_product_ids: rawData.relatedProducts.productIds,
         quantity: rawData.quantity,
         categories: rawData.categoryIds,
-        fileAttatchments: rawData.files?.map(
-          (file): FileAttatchments => ({
+        fileAttachments: rawData.files?.map(
+          (file): FileAttachments => ({
             id: file.id,
             name: file.name,
             url: file.adminUrl,
@@ -86,7 +87,23 @@ const EcwidTranslator = {
      * @param rawData - raw data from the ecwid category
      * @returns standardized category
      */
-    translateSingle: (rawData: EcwidCategoryType) => {},
+    translateSingle: (rawData: EcwidCategoryType): StandardizedCategory => {
+      const standardizedCategory: StandardizedCategory = {
+        id: rawData.id,
+        name: rawData.name,
+        url: rawData.url,
+        description: rawData.description,
+        parent_id: rawData.parentId,
+        image: rawData.imageUrl,
+        product_count: rawData.productCount,
+        translations: {
+          name: rawData.nameTranslated,
+          description: rawData.descriptionTranslated,
+        },
+      };
+
+      return standardizedCategory;
+    },
 
     /**
      * @description accepts a multi-category response from ecwid and converts each item into the standardized format
@@ -95,7 +112,19 @@ const EcwidTranslator = {
      */
     translateMultiple: (
       rawData: EcwidMultiItemResponse<EcwidCategoryType>
-    ) => {},
+    ): StandardMultiItemResponse<StandardizedCategory> => {
+      const standardizedCategoryArr: StandardizedCategory[] = rawData.items.map(
+        (item) => EcwidTranslator.Category.translateSingle(item)
+      );
+
+      return {
+        count: rawData.count,
+        limit: rawData.limit,
+        offset: rawData.offset,
+        total: rawData.total,
+        items: standardizedCategoryArr,
+      };
+    },
   },
 };
 
