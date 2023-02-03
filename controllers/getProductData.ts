@@ -18,25 +18,32 @@ export default async function getProductData({
   storeInfo,
   queries,
 }: Params) {
-  switch (storeInfo.source) {
-    case "ecwid":
-      if (!credentials.token) {
-        throw new Error("No token provided");
-      }
+  /**
+   * Ecwid
+   */
+  if (storeInfo.source === "ecwid") {
+    if (!credentials.token) {
+      throw new Error("No token provided");
+    }
 
-      try {
-        const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
-        const data = await Ecwid.Products.getAll();
-        const standardizedData =
-          EcwidTranslator.Product.translateMultiple(data);
-          
-        return standardizedData;
-      } catch (e: any) {
-        throw e;
-      }
-    case "woocommerce":
-      return;
-    default:
-      return;
+    try {
+      const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
+      const data = await Ecwid.Products.getAll();
+      const standardizedData = EcwidTranslator.Product.translateMultiple(data);
+
+      return standardizedData;
+    } catch (e: any) {
+      throw e;
+    }
   }
+
+  /**
+   * Woocommerce
+   */
+  if (storeInfo.source === "woocommerce") {
+    // woocommerce functions here
+    // make sure to return inside the if statements
+  }
+
+  return;
 }
