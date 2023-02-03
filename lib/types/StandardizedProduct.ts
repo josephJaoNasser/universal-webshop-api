@@ -12,7 +12,7 @@ interface ProductBasicData {
   regular_price: number;
   sale_price: number;
   price_formatted: string;
-  in_stock: Boolean;
+  in_stock: boolean;
   weight: string | number;
   dimensions: Dimensions;
   date_created: Date;
