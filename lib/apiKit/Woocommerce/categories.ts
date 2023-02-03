@@ -1,7 +1,7 @@
 import axios from "axios";
-import WoocommerceApi from "./Woocommerce";
+import RouteConfig from "./RouteConfig";
 
-class WoocommerceCategories extends WoocommerceApi{
+class WoocommerceCategories extends RouteConfig{
   async getAll() {}
 
   async getByPath() {}

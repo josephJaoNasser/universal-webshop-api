@@ -1,4 +1,4 @@
-export default interface EcwidProduct {
+export default interface EcwidProductType {
   id: number;
   sku: string;
   quantity: number;

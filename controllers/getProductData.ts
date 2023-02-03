@@ -1,5 +1,4 @@
-import { AxiosError } from "axios";
-import { EcwidCredential, EcwidProducts } from "../lib/apiKit/Ecwid";
+import EcwidApi, { EcwidCredential } from "../lib/apiKit/Ecwid";
 import { WoocommerceCredential } from "../lib/apiKit/Woocommerce";
 
 interface Credentials extends WoocommerceCredential, EcwidCredential {}
@@ -25,17 +24,12 @@ export default async function getProductData({
       }
 
       try {
-        const api = new EcwidProducts(
-          storeInfo.storeId.toString(),
-          credentials.token
-        );
+        const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
+        const data = await Ecwid.Products.getAll();
 
-        const res = await api.getAll();
-        return res.data;
+        return data;
       } catch (e: any) {
-        console.log(e);
-        const err: AxiosError = e;
-        throw new Error(err.message);
+        throw e;
       }
     case "woocommerce":
       return;

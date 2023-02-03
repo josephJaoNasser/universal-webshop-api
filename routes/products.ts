@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import express from "express";
 import getProductData from "../controllers/getProductData";
 import getStoreInfo from "../helpers/getStoreInfo";
@@ -21,8 +22,12 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
   try {
     const data = await getProductData(payload);
     return res.status(200).send(data);
-  } catch (e) {
-    return res.status(404).send(e);
+  } catch (e: any) {
+    const err: AxiosError = e;
+    console.log({ err });
+    return res
+      .status(err.response?.status || 404)
+      .send(err.message || "Error when fetching products");
   }
 });
 
@@ -30,9 +35,7 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
  * @method get
  * @desc search for a product by keyword/s
  */
-router.get("/api/:storeId/products/search", async (req, res) => {
-
-});
+router.get("/api/:storeId/products/search", async (req, res) => {});
 
 // /***
 //  * @method get

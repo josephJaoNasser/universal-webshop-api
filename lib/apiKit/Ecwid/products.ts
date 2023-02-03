@@ -1,25 +1,17 @@
 import axios, { AxiosResponse } from "axios";
-import EcwidApi from "./Ecwid";
+import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
+import EcwidProductType from "../../types/ecwid/EcwidProductType";
+import RouteConfig from "./RouteConfig";
 
-class EcwidProducts extends EcwidApi {
-  queries?: any;
-
-  constructor(storeId: string, token: string, queries?: any) {
-    super(storeId, token);
-    this.queries = queries;
-  }
-
+class EcwidProducts extends RouteConfig {
   /**
    * @description get all products
    */
-  getAll() {
-    const config = {
-      headers: {
-        Authorization: this.token,
-      },
-    };
+  async getAll() {
+    const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
+      await axios.get(this.baseURL + "/products", this.config);
 
-    return axios.get(this.baseURL + "/products", config);
+    return res.data;
   }
 
   /**
@@ -43,7 +35,14 @@ class EcwidProducts extends EcwidApi {
   /**
    * @description retrieve a single product
    */
-  async getById() {}
+  async getById(productId: number) {
+    const res: AxiosResponse<EcwidProductType> = await axios.get(
+      this.baseURL + "/products/" + productId,
+      this.config
+    );
+
+    return res.data;
+  }
 }
 
 export default EcwidProducts;

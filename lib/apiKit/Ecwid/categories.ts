@@ -1,25 +1,17 @@
-import axios from "axios";
-import EcwidApi from "./Ecwid";
+import axios, { AxiosResponse } from "axios";
+import EcwidCategoryType from "../../types/ecwid/EcwidCategoryType";
+import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
+import RouteConfig from "./RouteConfig";
 
-class EcwidCategories extends EcwidApi {
-  queries: any;
-
-  constructor(storeId: string, token: string, queries?: any) {
-    super(storeId, token);
-    this.queries = queries;
-  }
-
+class EcwidCategories extends RouteConfig {
   /**
    * @description get all categories
    */
   async getAll() {
-    const config = {
-      headers: {
-        Authorization: this.token,
-      },
-    };
-    
-    return axios.get(this.baseURL + "/categories", config);
+    const res: AxiosResponse<EcwidMultiItemResponse<EcwidCategoryType>> =
+      await axios.get(this.baseURL + "/categories", this.config);
+
+    return res.data;
   }
 
   /**
@@ -42,7 +34,14 @@ class EcwidCategories extends EcwidApi {
   /**
    * @description get a single category by id
    */
-  async getById() {}
+  async getById(categoryId: number) {
+    const res: AxiosResponse<EcwidCategoryType> = await axios.get(
+      this.baseURL + "/categories/" + categoryId,
+      this.config
+    );
+
+    return res.data;
+  }
 }
 
 export default EcwidCategories;

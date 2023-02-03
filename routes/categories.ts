@@ -1,7 +1,6 @@
 import express from "express";
 import getCategoryData from "../controllers/getCategoryData";
 import getStoreInfo from "../helpers/getStoreInfo";
-import EcwidApiHelper from "../lib/apiKit/Ecwid/Ecwid";
 
 const router = express.Router();
 

@@ -1,4 +1,7 @@
-type AuthConfig = {
+import EcwidCategories from "./categories";
+import EcwidProducts from "./products";
+
+export type EcwidConfig = {
   headers: {
     Authorization: string;
   };
@@ -6,19 +9,31 @@ type AuthConfig = {
 
 class EcwidApi {
   baseURL: string;
-  storeID: string;
+  storeID: number;
   token: string;
-  config: AuthConfig;
+  config: EcwidConfig;
+  Products: EcwidProducts;
+  Categories: EcwidCategories;
 
-  constructor(storeID: string, token: string) {
+  constructor(storeID: number, token: string) {
     this.storeID = storeID;
     this.token = token;
     this.baseURL = "https://app.ecwid.com/api/v3/" + storeID;
     this.config = {
       headers: {
-        Authorization: token,
+        Authorization: this.initToken(token),
       },
     };
+    this.Products = new EcwidProducts(this.baseURL, this.config);
+    this.Categories = new EcwidCategories(this.baseURL, this.config);
+  }
+
+  private initToken(token: string) {
+    if (!token.startsWith("Bearer ")) {
+      return "Bearer " + token;
+    }
+
+    return token;
   }
 }
 

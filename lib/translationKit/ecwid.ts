@@ -1,4 +1,6 @@
-import EcwidProduct from "../types/ecwid/EcwidProductType";
+import EcwidProductType from "../types/ecwid/EcwidProductType";
+import EcwidCategoryType from "../types/ecwid/EcwidCategoryType";
+import EcwidMultiItemResponse from "../types/ecwid/EcwidMultiItemResponse";
 
 const EcwidTranslator = {
   Product: {
