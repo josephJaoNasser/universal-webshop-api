@@ -170,12 +170,6 @@ interface StandardizedCategory {
 The ```StandardizedCategory``` type uses the following helper types
 
 ```typescript
-interface Image {
-  id?: string | number;
-  src: string;
-  alt?: string;
-}
-
 interface Translations {
   name: {
     [key: string]: string;
