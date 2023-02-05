@@ -1,0 +1,27 @@
+import { ProductResponse } from ".";
+import { Params } from "..";
+import EcwidApi from "../../../lib/apiKit/Ecwid";
+
+export default async function ecwidHandler({
+  method,
+  credentials,
+  storeInfo,
+  queries,
+  id,
+}: Params): Promise<ProductResponse> {
+  if (!credentials.token) {
+    throw new Error("No token provided");
+  }
+
+  try {
+    const Ecwid = new EcwidApi(+storeInfo.storeId, credentials.token);
+    const standardizedData: ProductResponse = await Ecwid.Products[method]({
+      queries,
+      id,
+    });
+
+    return standardizedData;
+  } catch (e: any) {
+    throw e;
+  }
+}

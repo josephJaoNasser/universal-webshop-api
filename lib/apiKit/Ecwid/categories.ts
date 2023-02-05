@@ -2,13 +2,14 @@ import axios, { AxiosResponse } from "axios";
 import EcwidTranslator from "../../translationKit/ecwid";
 import EcwidCategoryType from "../../types/ecwid/EcwidCategoryType";
 import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
+import StandardizedCategory from "../../types/StandardizedCategory";
 import RouteConfig from "./RouteConfig";
 
 class EcwidCategories extends RouteConfig {
   /**
    * @description get all categories
    */
-  async getAll() {
+  async getAll(): Promise<StandardMultiItemResponse<StandardizedCategory>> {
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidCategoryType>> =
       await axios.get(this.baseURL + "/categories", this.config);
 
@@ -25,7 +26,9 @@ class EcwidCategories extends RouteConfig {
    * @param offset Offset from the beginning of the returned items list (for paging)
    * @param limit Maximum number of returned items. Maximum allowed value: 100. Default value: 100
    * */
-  async getByPath({ queries }) {
+  async getByPath({
+    queries,
+  }): Promise<StandardMultiItemResponse<StandardizedCategory>> {
     const pathQueries = new URLSearchParams(queries).toString();
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidCategoryType>> =
       await axios.get(
@@ -39,7 +42,7 @@ class EcwidCategories extends RouteConfig {
   /**
    * @description Get order of categories inside a specific category. Use parentCategory=0 to get categories inside the "Store front page" category.
    */
-  async getSorted({ queries }) {
+  async getSorted({ queries }): Promise<number[]> {
     const { parentCategory } = queries;
     const res: AxiosResponse<number[]> = await axios.get(
       this.baseURL + "/categories/sort?parentCategory=" + parentCategory,
@@ -52,7 +55,7 @@ class EcwidCategories extends RouteConfig {
   /**
    * @description get a single category by id
    */
-  async getById({ id }: { id: number }) {
+  async getById({ id }: { id: number }): Promise<StandardizedCategory> {
     const res: AxiosResponse<EcwidCategoryType> = await axios.get(
       this.baseURL + "/categories/" + id,
       this.config

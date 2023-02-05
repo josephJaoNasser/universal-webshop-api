@@ -2,13 +2,14 @@ import axios, { AxiosResponse } from "axios";
 import EcwidTranslator from "../../translationKit/ecwid";
 import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
 import EcwidProductType from "../../types/ecwid/EcwidProductType";
+import StandardizedProduct from "../../types/StandardizedProduct";
 import RouteConfig from "./RouteConfig";
 
 class EcwidProducts extends RouteConfig {
   /**
    * @description get all products
    */
-  async getAll() {
+  async getAll(): Promise<StandardMultiItemResponse<StandardizedProduct>> {
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
       await axios.get(this.baseURL + "/products", this.config);
 
@@ -26,7 +27,9 @@ class EcwidProducts extends RouteConfig {
     - gallery image descriptions
     - attribute values (except for hidden attributes). If your keywords contain special characters, it may make sense to URL encode them before making a request
    */
-  async searchByKeywords({ queries }) {
+  async searchByKeywords({
+    queries,
+  }): Promise<StandardMultiItemResponse<StandardizedProduct>> {
     const keyword = queries.keyword as string;
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
       await axios.get(
@@ -40,9 +43,11 @@ class EcwidProducts extends RouteConfig {
   /**
    * @description search for products using filters. For reference, see the Ecwid api
    */
-  async searchByFilters({ queries }) {
+  async searchByFilters({
+    queries,
+  }): Promise<StandardMultiItemResponse<StandardizedProduct>> {
     const filterParams = new URLSearchParams(queries).toString();
-    console.log(this.baseURL + "/products?" + filterParams)
+    console.log(this.baseURL + "/products?" + filterParams);
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
       await axios.get(this.baseURL + "/products?" + filterParams, this.config);
 
@@ -52,7 +57,7 @@ class EcwidProducts extends RouteConfig {
   /**
    * @description retrieve a single product
    */
-  async getById({ id }: { id: number }) {
+  async getById({ id }: { id: number }): Promise<StandardizedProduct> {
     const res: AxiosResponse<EcwidProductType> = await axios.get(
       this.baseURL + "/products/" + id,
       this.config
