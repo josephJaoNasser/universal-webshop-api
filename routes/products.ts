@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import express from "express";
 import getProductData from "../controllers/getProductData";
-import getStoreInfo from "../helpers/getStoreInfo";
+import getStoreInfo from "../middleware/getStoreInfo";
 import StandardizedProduct from "../lib/types/StandardizedProduct";
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getAll",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -43,7 +43,7 @@ router.get("/api/:storeId/products/search", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "searchByKeywords",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -71,7 +71,7 @@ router.get("/api/:storeId/products/filter", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "searchByFilters",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -99,7 +99,7 @@ router.get("/api/:storeId/products/:id", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getById",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     id: req.params.id,
     storeInfo,
   };

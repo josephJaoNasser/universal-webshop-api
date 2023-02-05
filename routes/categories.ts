@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import express from "express";
 import getCategoryData from "../controllers/getCategoryData";
-import getStoreInfo from "../helpers/getStoreInfo";
+import getStoreInfo from "../middleware/getStoreInfo";
 import StandardizedCategory from "../lib/types/StandardizedCategory";
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get("/api/:storeId/categories", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getAll",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -43,7 +43,7 @@ router.get("/api/:storeId/categories/path", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getByPath",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -71,7 +71,7 @@ router.get("/api/:storeId/categories/sort", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getSorted",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     queries: req.query,
     storeInfo,
   };
@@ -97,7 +97,7 @@ router.get("/api/:storeId/categories/:id", getStoreInfo, async (req, res) => {
 
   const payload = {
     method: "getById",
-    credentials: req.body.credentials,
+    credentials: storeInfo.credentials,
     id: req.params.id,
     storeInfo,
   };
