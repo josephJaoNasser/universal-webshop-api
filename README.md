@@ -6,44 +6,12 @@
 - to run locally, use ```npm run dev``` or ```yarn dev```
 
 ## Authentication
-- Send your credentials such as access token or api keys through the body of the request. Examples are shown below
-
-<table>
-<thead>
-<tr>
-<td> <b>Webshop</b> </td> <td> <b>Request body</b> </td>
-</tr>
-</thead>
-<tr>
-<td> Ecwid</td>
-<td>
-
-```json 
-{
-    "credentials": {
-        "token": "your_token_here"
-    }
-} 
-``` 
-
-</td>
-</tr>
-<tr>
-<td> Woocommerce</td>
-<td>
-
-```json 
-{
-    "credentials": {
-        "consumer_key": "your_consumer_key"
-        "consumer_secret": "your_consumer_secret"
-    }
-} 
+- Send the token via the headers
+``` json
+"headers": {
+    "authorization": "Bearer utd_db_proprietary_store_token"   
+}
 ```
-
-</td>
-</tr>
-</table>
 
 ## Products
 
@@ -132,7 +100,7 @@ interface MultipleProducts {
   count: number;
   offset: number;
   limit: number;
-  items: StandardizedProduct;
+  items: StandardizedProduct[];
 }
 ```
 
@@ -190,6 +158,6 @@ interface MultipleCategories {
   count: number;
   offset: number;
   limit: number;
-  items: StandardizedProduct;
+  items: StandardizedCategory[];
 }
 ```
