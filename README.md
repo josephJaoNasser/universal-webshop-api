@@ -100,7 +100,7 @@ interface MultipleProducts {
   count: number;
   offset: number;
   limit: number;
-  items: StandardizedProduct;
+  items: StandardizedProduct[];
 }
 ```
 
@@ -158,6 +158,6 @@ interface MultipleCategories {
   count: number;
   offset: number;
   limit: number;
-  items: StandardizedProduct;
+  items: StandardizedCategory[];
 }
 ```
