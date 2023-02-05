@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import EcwidTranslator from "./ecwidTranslator";
-import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
-import EcwidProductType from "../../types/ecwid/EcwidProductType";
-import StandardizedProduct from "../../types/StandardizedProduct";
+import EcwidMultiItemResponse from "./types/EcwidMultiItemResponse";
+import EcwidProductType from "./types/EcwidProductType";
+import StandardizedProduct from "@/lib/types/StandardizedProduct";
 import RouteConfig from "./RouteConfig";
 
 class EcwidProducts extends RouteConfig {

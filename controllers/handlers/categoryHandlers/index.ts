@@ -1,4 +1,4 @@
-import StandardizedCategory from "../../../lib/types/StandardizedCategory";
+import StandardizedCategory from "@/lib/types/StandardizedCategory";
 import ecwidHandler from "./ecwid";
 import woocommerceHandler from "./woocommerce";
 

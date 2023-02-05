@@ -1,6 +1,6 @@
 import { Params } from "..";
 import { ProductResponse } from ".";
-import WoocommerceApi from "../../../lib/apiKit/Woocommerce";
+import WoocommerceApi from "@/lib/apiKit/Woocommerce";
 
 export default async function woocommerceHandler ({
   method,

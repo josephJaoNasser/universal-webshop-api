@@ -1,5 +1,5 @@
-import { EcwidCredential } from "../../lib/apiKit/Ecwid";
-import { WoocommerceCredential } from "../../lib/apiKit/Woocommerce";
+import { EcwidCredential } from "@/lib/apiKit/Ecwid/Ecwid";
+import { WoocommerceCredential } from "@/lib/apiKit/Woocommerce";
 import productHandlers from "./productHandlers";
 import categoryHandlers from "./categoryHandlers";
 

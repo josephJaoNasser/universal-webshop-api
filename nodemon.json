@@ -1,5 +1,5 @@
 {
   "execMap": {
-      "ts": "ts-node --transpile-only"
+    "ts": "ts-node --transpile-only -r tsconfig-paths/register \"index.ts\""
   }
 }

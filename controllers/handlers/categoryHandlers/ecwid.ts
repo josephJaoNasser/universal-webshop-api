@@ -1,6 +1,6 @@
 import { CategoryResponse } from ".";
 import { Params } from "..";
-import EcwidApi from "../../../lib/apiKit/Ecwid";
+import EcwidApi from "@/lib/apiKit/Ecwid";
 
 export default async function ecwidHandler({
   method,

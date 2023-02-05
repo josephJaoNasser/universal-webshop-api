@@ -1,4 +1,4 @@
-import StandardizedProduct from "../../../lib/types/StandardizedProduct";
+import StandardizedProduct from "@/lib/types/StandardizedProduct";
 import ecwidHandler from "./ecwid";
 import woocommerceHandler from "./woocommerce";
 
