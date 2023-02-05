@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import EcwidTranslator from "../../translationKit/ecwid";
+import EcwidTranslator from "./ecwidTranslator";
 import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
 import EcwidProductType from "../../types/ecwid/EcwidProductType";
 import StandardizedProduct from "../../types/StandardizedProduct";

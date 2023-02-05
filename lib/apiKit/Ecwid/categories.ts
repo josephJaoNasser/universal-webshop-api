@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import EcwidTranslator from "../../translationKit/ecwid";
-import EcwidCategoryType from "../../types/ecwid/EcwidCategoryType";
+import EcwidTranslator from "./ecwidTranslator";
+import EcwidCategoryType from "./types/EcwidCategoryType";
 import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
 import StandardizedCategory from "../../types/StandardizedCategory";
 import RouteConfig from "./RouteConfig";

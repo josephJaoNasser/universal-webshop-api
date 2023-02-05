@@ -1,11 +1,11 @@
-import EcwidProductType from "../types/ecwid/EcwidProductType";
-import EcwidCategoryType from "../types/ecwid/EcwidCategoryType";
-import EcwidMultiItemResponse from "../types/ecwid/EcwidMultiItemResponse";
+import EcwidProductType from "../../types/ecwid/EcwidProductType";
+import EcwidCategoryType from "./types/EcwidCategoryType";
+import EcwidMultiItemResponse from "../../types/ecwid/EcwidMultiItemResponse";
 import StandardizedProduct, {
   FileAttachments,
-} from "../types/StandardizedProduct";
-import { Image } from "../types/generalTypes";
-import StandardizedCategory from "../types/StandardizedCategory";
+} from "../../types/StandardizedProduct";
+import { Image } from "../../types/generalTypes";
+import StandardizedCategory from "../../types/StandardizedCategory";
 
 const EcwidTranslator = {
   Product: {
