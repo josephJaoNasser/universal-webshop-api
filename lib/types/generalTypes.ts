@@ -5,7 +5,7 @@ export interface Image {
 }
 
 export interface Translations {
-  name: {
+  name?: {
     [key: string]: string;
   };
   description?: {

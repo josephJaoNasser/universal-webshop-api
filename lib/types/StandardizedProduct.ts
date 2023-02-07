@@ -14,7 +14,7 @@ interface ProductBasicData {
   price_formatted: string;
   in_stock: boolean;
   weight: string | number;
-  dimensions: Dimensions;
+  dimensions?: Dimensions;
   date_created: Date;
   date_modified: Date;
   related_product_ids: string[] | number[];
@@ -26,9 +26,9 @@ interface ProductBasicData {
 }
 
 interface Dimensions {
-  length: string | number;
-  width: string | number;
-  height: string | number;
+  length?: string | number;
+  width?: string | number;
+  height?: string | number;
 }
 
 export interface FileAttachments {
