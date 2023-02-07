@@ -7,9 +7,9 @@ export type CategoryResponse =
   | StandardizedCategory
   | number[];
 
-const categoryHandlers = {
+const categoryControllers = {
   ecwid: ecwidHandler,
   woocommerce: woocommerceHandler,
 };
 
-export default categoryHandlers;
+export default categoryControllers;

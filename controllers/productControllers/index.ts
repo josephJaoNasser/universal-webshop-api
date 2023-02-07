@@ -6,9 +6,9 @@ export type ProductResponse =
   | StandardMultiItemResponse<StandardizedProduct>
   | StandardizedProduct;
 
-const productHandlers = {
+const productControllers = {
   ecwid: ecwidHandler,
   woocommerce: woocommerceHandler,
 };
 
-export default productHandlers;
+export default productControllers;

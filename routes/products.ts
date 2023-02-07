@@ -1,8 +1,9 @@
 import { AxiosError } from "axios";
 import express from "express";
-import getProductData from "../controllers/getProductData";
+import productControllers from "@/controllers/productControllers";
 import getStoreInfo from "../middleware/getStoreInfo";
 import StandardizedProduct from "../lib/types/StandardizedProduct";
+import { Params } from "@/controllers";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const router = express.Router();
 router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
-  const payload = {
+  const payload: Params = {
     method: "getAll",
     credentials: storeInfo.credentials,
     queries: req.query,
@@ -21,7 +22,7 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
   };
 
   try {
-    const data = (await getProductData(
+    const data = (await productControllers[storeInfo.source](
       payload
     )) as StandardMultiItemResponse<StandardizedProduct>;
     return res.status(200).send(data);
@@ -41,7 +42,7 @@ router.get("/api/:storeId/products", getStoreInfo, async (req, res) => {
 router.get("/api/:storeId/products/search", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
-  const payload = {
+  const payload: Params = {
     method: "searchByKeywords",
     credentials: storeInfo.credentials,
     queries: req.query,
@@ -49,7 +50,7 @@ router.get("/api/:storeId/products/search", getStoreInfo, async (req, res) => {
   };
 
   try {
-    const data = (await getProductData(
+    const data = (await productControllers[storeInfo.source](
       payload
     )) as StandardMultiItemResponse<StandardizedProduct>;
     return res.status(200).send(data);
@@ -69,7 +70,7 @@ router.get("/api/:storeId/products/search", getStoreInfo, async (req, res) => {
 router.get("/api/:storeId/products/filter", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
-  const payload = {
+  const payload: Params = {
     method: "searchByFilters",
     credentials: storeInfo.credentials,
     queries: req.query,
@@ -77,7 +78,7 @@ router.get("/api/:storeId/products/filter", getStoreInfo, async (req, res) => {
   };
 
   try {
-    const data = (await getProductData(
+    const data = (await productControllers[storeInfo.source](
       payload
     )) as StandardMultiItemResponse<StandardizedProduct>;
     return res.status(200).send(data);
@@ -97,7 +98,7 @@ router.get("/api/:storeId/products/filter", getStoreInfo, async (req, res) => {
 router.get("/api/:storeId/products/:id", getStoreInfo, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
-  const payload = {
+  const payload: Params = {
     method: "getById",
     credentials: storeInfo.credentials,
     id: req.params.id,
@@ -105,7 +106,7 @@ router.get("/api/:storeId/products/:id", getStoreInfo, async (req, res) => {
   };
 
   try {
-    const data = (await getProductData(payload)) as StandardizedProduct;
+    const data = (await productControllers[storeInfo.source](payload)) as StandardizedProduct;
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;

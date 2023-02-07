@@ -1,7 +1,7 @@
 import { EcwidCredential } from "@/lib/apiKit/Ecwid/Ecwid";
 import { WoocommerceCredential } from "@/lib/apiKit/Woocommerce";
-import productHandlers from "./productHandlers";
-import categoryHandlers from "./categoryHandlers";
+import productControllers from "./productControllers";
+import categoryControllers from "./categoryControllers";
 
 interface Credentials extends WoocommerceCredential, EcwidCredential {}
 
@@ -14,6 +14,6 @@ export interface Params {
 }
 
 export default {
-  productHandlers,
-  categoryHandlers,
+  productControllers,
+  categoryControllers,
 };
