@@ -1,160 +1,77 @@
 export default interface EcwidProductType {
+  attributes?: AttributeValue[];
+  borderInfo?: BorderInfo; // Not in Docs
+  categories?: CategoriesInfo[];
+  categoryIds?: number[];
+  combinations?: Variation[];
+  compareToPrice?: number;
+  compareToPriceDiscount?: number;
+  compareToPriceDiscountFormatted?: string;
+  compareToPriceDiscountPercent?: number;
+  compareToPriceDiscountPercentFormatted?: string;
+  compareToPriceFormatted?: string;
+  createTimestamp?: number;
+  created?: string;
+  defaultCategoryId?: number;
+  defaultCombinationId?: number;
+  defaultDisplayedPrice?: number;
+  defaultDisplayedPriceFormatted?: string;
+  description?: string;
+  descriptionTranslated?: Translations;
+  dimensions?: ProductDimensions;
+  discountsAllowed?: boolean;
+  enabled?: boolean;
+  files?: ProductFile[];
+  fixedShippingRate?: number;
+  fixedShippingRateOnly?: boolean;
+  galleryImages?: GalleryImages[]; // Not in Docs
+  googleItemCondition?: string; // Not in Docs
+  hdThumbnailUrl?: string; // Not in Docs
   id: number;
-  sku: string;
-  quantity: number;
-  unlimited: boolean;
-  inStock: boolean;
-  name: string;
-  nameTranslated: Translations;
-  price: number;
-  defaultDisplayedPrice: number;
-  defaultDisplayedPriceFormatted: string;
-  costPrice: number;
-  tax: TaxInfo;
-  wholesalePrices: Array<WholesalePrice>;
-  compareToPrice: number;
-  compareToPriceFormatted: string;
-  compareToPriceDiscount: number;
-  compareToPriceDiscountFormatted: string;
-  compareToPriceDiscountPercent: number;
-  compareToPriceDiscountPercentFormatted: string;
-  isShippingRequired: boolean;
-  weight: number;
-  url: string;
-  created: string;
-  updated: string;
-  createTimestamp: number;
-  updateTimestamp: number;
-  productClassId: number;
-  enabled: boolean;
-  options: Array<ProductOption>;
-  warningLimit: number;
-  fixedShippingRateOnly: boolean;
-  fixedShippingRate: number;
-  shipping: ShippingSettings;
-  defaultCombinationId: number;
-  originalImage: Array<OriginalImage>;
-  description: string;
-  descriptionTranslated: Translations;
-  galleryImages: Array<GalleryImages>;
-  media: ProductMedia;
-  categoryIds: Array<number>;
-  categories: Array<CategoriesInfo>;
-  defaultCategoryId: number;
-  seoTitle: string;
-  seoTitleTranslated: string;
-  seoDescription: string;
-  seoDecriptionTranslated: string;
-  favorites: FavoritesStats;
-  attributes: Array<AttributeValue>;
-  files: Array<ProductFile>;
-  relatedProducts: RelatedProducts;
-  combinations: Array<Variation>;
-  dimensions: ProductDimensions;
-  volume: number;
-  showOnFrontpage: number;
-  isSampleProduct: boolean;
-  isGiftCard: boolean;
-  discountsAllowed: boolean;
-  nameYourPriceEnabled: boolean;
-  subscriptionSettings: Array<SubscriptionSettings>;
-  subtitle: string;
-  ribbon: Ribbon;
-  subtitleTranslated: Translations;
-  ribbonTranslated: Translations;
-  externalReferenceId: string;
-  customsHsTariffCode: string;
-  outOfStockVisibilityBehaviour: string;
+  imageUrl?: string; // Not in Docs
+  inStock?: boolean;
+  isGiftCard?: boolean;
+  isSampleProduct?: boolean;
+  isShippingRequired?: boolean;
+  media?: ProductMedia;
+  name?: string;
+  nameTranslated?: Translations;
+  nameYourPriceEnabled?: boolean;
+  options?: ProductOption[];
+  originalImage?: OriginalImage; // Not in Docs
+  originalImageUrl?: string; // Not in Docs
+  price?: number;
+  priceInProductList?: number; // Not in Docs
+  productClassId?: number;
+  productCondition?: string; // Not in Docs
+  relatedProducts?: RelatedProducts;
+  seoDescription?: string;
+  seoTitle?: string;
+  shipping?: ShippingSettings;
+  showOnFrontpage?: number;
+  sku?: string;
+  smallThumbnailUrl?: string; // Not in Docs
+  tax?: TaxInfo;
+  thumbnailUrl?: string; // Not in Docs
+  unlimited?: boolean;
+  updateTimestamp?: number;
+  updated?: string; // Not in Docs
+  url?: string;
+  warningLimit?: number;
+  weight?: number;
+  quantity?: number,
+  wholesalePrices?: WholesalePrice[];
 }
 
-interface FavoritesStats {
-  count: number;
-  displayedCount: string;
-}
-
-interface WholesalePrice {
-  quantity: number;
-  price: number;
-}
-
-interface ProductOption {
-  type: string;
-  name: string;
-  nameTranslated: Translations;
-  choices: Array<ProductOptionChoice>;
-  defaultChoice: number;
-  required: boolean;
-}
-
-interface ShippingSettings {
-  type: string;
-  methodMarkup: number;
-  flatRate: number;
-  disabledMethods: Array<string>;
-  enabledMethods: Array<string>;
-}
-
-interface OriginalImage {
-  url: string;
-  width: number;
-  height: number;
-}
-
-interface GalleryImages {
-  id: number;
-  url: string;
-  thumbnail: string;
-  originalImageUrl: string;
-  imageUrl: string;
-  hdThumbnailUrl: string;
-  thumbnailUrl: string;
-  smallThumbnailUrl: string;
-  width: number;
-  height: number;
-  orderBy: number;
-  borderInfo: Array<BorderInfo>;
-}
-
-interface BorderInfo {
-  dominatingColor: Array<DominatingColor>;
-  homogeneity: boolean;
-}
-
-interface DominatingColor {
-  red: number;
-  green: number;
-  blue: number;
-  alpha: number;
-}
-
-interface ProductMedia {
-  images: Array<ProductImage>;
-}
-
-interface ProductImage {
-  id: number;
-  orderBy: number;
-  isMain: boolean;
-  image160pxUrl: string;
-  image400pxUrl: string;
-  image800pxUrl: string;
-  image1500pxUrl: string;
-  imageOriginalUrl: string;
+interface OptionValue {
+  nameTranslated?: Translations;
+  value?: string;
+  valueTranslated?: Translations;
 }
 
 interface CategoriesInfo {
   id: number;
-  enabled: boolean;
-}
-
-interface AttributeValue {
-  id: number;
-  name: string;
-  nameTranslated: Translations;
-  value: string;
-  valueTranslated: Translations;
-  type: string;
-  show: string;
+  enabled?: boolean;
 }
 
 interface ProductFile {
@@ -165,97 +82,151 @@ interface ProductFile {
   adminUrl: string;
 }
 
-interface RelatedProducts {
-  productIds: Array<number>;
-  relatedCategory: RelatedCategory;
-}
-
-interface RelatedCategory {
-  enabled: boolean;
-  categoryId: number;
-  productCount: number;
+export interface ProductDimensions {
+  length?: number;
+  width?: number;
+  height?: number;
 }
 
 interface Variation {
   id: number;
-  combinationNumber: number;
-  options: Array<OptionValue>;
-  sku: string;
-  thumbnailUrl: string;
-  imageUrl: string;
-  smallThumbnailUrl: string;
-  hdThumbnailUrl: string;
-  originalImageUrl: string;
+  combinationNumber?: number;
+  options?: OptionValue[];
+  sku?: string;
+  thumbnailUrl?: string;
+  imageUrl?: string;
+  smallThumbnailUrl?: string;
+  hdThumbnailUrl?: string;
+  originalImageUrl?: string;
+  quantity?: number;
+  unlimited?: boolean;
+  price?: number;
+  wholesalePrices?: WholesalePrice[];
+  weight?: number;
+  warningLimit?: number;
+  attributes?: AttributeValue[];
+  compareToPrice?: number;
+}
+
+interface WholesalePrice {
   quantity: number;
-  unlimited: boolean;
   price: number;
-  wholesalePrices: Array<WholesalePrice>;
-  weight: number;
-  warningLimit: number;
-  attributes: Array<AttributeValue>;
-  compareToPrice: number;
-}
-
-interface OptionValue {
-  name: string;
-  nameTranslated: Translations;
-  value: string;
-  valueTranslated: Translations;
-}
-
-interface ProductOptionChoice {
-  text: string;
-  textTranslated: Translations;
-  priceModifier: number;
-  priceModifierType: string;
 }
 
 interface Translations {
   [key: string]: string;
 }
 
-interface ProductDimensions {
-  length: number;
-  width: number;
-  height: number;
-}
-
-interface SubscriptionSettings {
-  subscriptionAllowed: boolean;
-  oneTimePurchaseAllowed: boolean;
-  oneTimePurchasePrice: number;
-  oneTimePurchasePriceFormatted: string;
-  oneTimePurchaseMarkup: number;
-  oneTimePurchaseMarkupFormatted: string;
-  oneTimePurchaseMarkupPercent: number;
-  oneTimePurchaseMarkupPercentFormatted: string;
-  displayedOneTimePurchaseMarkupPercent: number;
-  displayedOneTimePurchaseMarkupPercentFormatted: string;
-  recurringChargeSettings: RecurringChargeSettings;
-}
-
-interface RecurringChargeSettings {
-  recurringInterval: string;
-  recurringIntervalCount: number;
-  subscriptionPriceWithSignUpFee: number;
-  subscriptionPriceWithSignUpFeeFormatted: string;
-  signUpFee: number;
-  signUpFeeFormatted: string;
-}
-
 interface TaxInfo {
-  taxable: boolean;
-  defaultLocationIncludedTaxRate: number;
-  enabledManualTaxes: Array<number>;
-  taxClassCode: string;
+  taxable?: boolean;
+  enabledManualTaxes: number[];
+  defaultLocationIncludedTaxRate?: number;
 }
 
-interface NameYourPriceEnabled {
-  priceDefaultTier: number;
-  customPriceTiers: Array<any>;
+interface ShippingSettings {
+  type?: "GLOBAL_METHODS" | "SELECTED_METHODS" | "FLAT_RATE" | "FREE_SHIPPING";
+  methodMarkup?: number;
+  flatRate?: number;
+  disabledMethods?: number[];
+  enabledMethods?: number[];
 }
 
-interface Ribbon {
-  text: string;
-  color: string;
+interface OriginalImage {
+  url?: string;
+  width?: number;
+  height?: number;
+}
+
+interface BorderInfo {
+  dominatingColor?: DominatingColor;
+  homogeneity?: boolean;
+}
+
+interface DominatingColor {
+  red?: number;
+  green?: number;
+  blue?: number;
+  alpha?: number;
+}
+
+interface ProductMedia {
+  images?: ProductImage[];
+}
+
+interface ProductImage {
+  id: string;
+  isMain?: boolean;
+  orderBy?: number;
+  image160pxUrl?: string;
+  image400pxUrl?: string;
+  image800pxUrl?: string;
+  image1500pxUrl?: string;
+  imageOriginalUrl?: string;
+}
+
+interface RelatedProducts {
+  productIds?: number[];
+  relatedCategory?: RelatedCategory;
+}
+
+interface RelatedCategory {
+  enabled?: boolean;
+  categoryId?: number;
+  productCount?: number;
+}
+
+interface ProductOption {
+  type:
+    | "SELECT"
+    | "RADIO"
+    | "CHECKBOX"
+    | "TEXTFIELD"
+    | "TEXTAREA"
+    | "DATE"
+    | "FILES"
+    | "SIZE";
+  name?: string;
+  nameTranslated?: Translations;
+  choices?: ProductOptionChoice[];
+  defaultChoice?: number;
+  required?: boolean;
+}
+
+interface ProductOptionChoice {
+  text?: string;
+  textTranslated?: Translations;
+  priceModifier?: number;
+  priceModifierType?: "PERCENT" | "ABSOLUTE";
+}
+
+interface GalleryImages {
+  id?: number;
+  url?: string;
+  thumbnail?: string;
+  originalImageUrl?: string;
+  imageUrl?: string;
+  hdThumbnailUrl?: string;
+  thumbnailUrl?: string;
+  smallThumbnailUrl?: string;
+  width?: number;
+  height?: number;
+  orderBy?: number;
+  borderInfo?: BorderInfo;
+}
+
+interface AttributeValue {
+  id?: number;
+  name?: string;
+  value?: string;
+  show?: string;
+  type?:
+    | "CUSTOM"
+    | "UPC"
+    | "BRAND"
+    | "GENDER"
+    | "AGE_GROUP"
+    | "COLOR"
+    | "SIZE"
+    | "PRICE_PER_UNIT"
+    | "UNITS_IN_PRODUCT";
 }

@@ -1,4 +1,4 @@
-import EcwidProductType from "./types/EcwidProductType";
+import EcwidProductType, { ProductDimensions } from "./types/EcwidProductType";
 import EcwidCategoryType from "./types/EcwidCategoryType";
 import EcwidMultiItemResponse from "./types/EcwidMultiItemResponse";
 import StandardizedProduct, {
@@ -17,43 +17,47 @@ const EcwidTranslator = {
     translateSingle: (rawData: EcwidProductType): StandardizedProduct => {
       const standardizedProduct: StandardizedProduct = {
         id: rawData.id,
-        sku: rawData.sku,
-        name: rawData.name,
-        url: rawData.url,
-        description: rawData.description,
+        sku: rawData.sku as string,
+        name: rawData.name as string,
+        url: rawData.url as string,
+        description: rawData.description as string,
         translations: {
-          name: rawData.nameTranslated,
-          description: rawData.descriptionTranslated,
+          ...(rawData.nameTranslated && { name: rawData.nameTranslated }),
+          ...(rawData.descriptionTranslated && {
+            description: rawData.descriptionTranslated,
+          }),
         },
         short_description: "",
-        current_price: rawData.defaultDisplayedPrice,
-        regular_price: rawData.price,
-        sale_price: rawData.compareToPriceDiscount,
-        price_formatted: rawData.compareToPriceFormatted,
-        in_stock: rawData.inStock,
-        weight: rawData.weight,
+        current_price: rawData.defaultDisplayedPrice as number,
+        regular_price: rawData.price as number,
+        sale_price: rawData.compareToPriceDiscount as number,
+        price_formatted: rawData.compareToPriceFormatted as string,
+        in_stock: rawData.inStock || false,
+        weight: rawData.weight as number,
         dimensions: rawData.dimensions,
-        date_created: new Date(rawData.createTimestamp),
-        date_modified: new Date(rawData.updateTimestamp),
-        related_product_ids: rawData.relatedProducts.productIds,
-        quantity: rawData.quantity,
-        categories: rawData.categoryIds,
-        fileAttachments: rawData.files?.map(
-          (file): FileAttachments => ({
-            id: file.id,
-            name: file.name,
-            url: file.adminUrl,
-            description: file.description,
-            size: file.size,
-          })
-        ),
-        images: rawData.media?.images?.map(
-          (image): Image => ({
-            src: image.imageOriginalUrl,
-            alt: "",
-            id: image.id,
-          })
-        ),
+        date_created: new Date(rawData.createTimestamp as number),
+        date_modified: new Date(rawData.updateTimestamp as number),
+        related_product_ids: rawData.relatedProducts?.productIds || [],
+        quantity: rawData.quantity as number,
+        categories: rawData.categoryIds || [],
+        fileAttachments:
+          rawData.files?.map(
+            (file): FileAttachments => ({
+              id: file.id,
+              name: file.name,
+              url: file.adminUrl,
+              description: file.description,
+              size: file.size,
+            })
+          ) || [],
+        images:
+          rawData.media?.images?.map(
+            (image): Image => ({
+              src: image.imageOriginalUrl as string,
+              alt: "",
+              id: image.id,
+            })
+          ) || [],
         rawData: rawData as EcwidProductType,
       };
 
