@@ -1,7 +1,8 @@
 import { Translations } from "./generalTypes";
 
 interface StandardizedCategory {
-  id: string | number;
+  id?: string;
+  original_id: string | number;
   name: string;
   url: string;
   description: string;

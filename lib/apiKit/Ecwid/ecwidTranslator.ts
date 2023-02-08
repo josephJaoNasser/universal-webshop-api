@@ -16,7 +16,7 @@ const EcwidTranslator = {
      */
     translateSingle: (rawData: EcwidProductType): StandardizedProduct => {
       const standardizedProduct: StandardizedProduct = {
-        id: rawData.id,
+        original_id: rawData.id,
         sku: rawData.sku as string,
         name: rawData.name as string,
         url: rawData.url as string,
@@ -93,7 +93,7 @@ const EcwidTranslator = {
      */
     translateSingle: (rawData: EcwidCategoryType): StandardizedCategory => {
       const standardizedCategory: StandardizedCategory = {
-        id: rawData.id,
+        original_id: rawData.id,
         name: rawData.name,
         url: rawData.url,
         description: rawData.description,

@@ -1,7 +1,8 @@
 import { Image, Translations } from "./generalTypes";
 
 interface ProductBasicData {
-  id: string | number;
+  id?: string;
+  original_id: string | number;
   sku: string;
   name: string;
   url: string;

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { EcwidConfig } from "./Ecwid";
 import RouteConfig from "./RouteConfig";
 import CartUpdateRequest from "./types/Cart/CartUpdateRequest";
@@ -33,10 +33,10 @@ class EcwidCart extends RouteConfig {
    */
   async getCart({ id }: { id: number }): Promise<OrderEntry> {
     try {
-      const response: OrderEntry = await axios.post(
+      const response: AxiosResponse<OrderEntry> = await axios.post(
         this.baseURL + "/carts/" + id
       );
-      return response;
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -55,11 +55,11 @@ class EcwidCart extends RouteConfig {
     const payload = this.cartPayload as CartUpdateRequest;
 
     try {
-      const response: { updateCount: number } = await axios.post(
+      const response: AxiosResponse<{ updateCount: number }> = await axios.post(
         this.baseURL + "/carts/" + id + "/place",
         payload
       );
-      return response;
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -78,11 +78,11 @@ class EcwidCart extends RouteConfig {
 
     const payload = this.cartPayload as CalculateOrderRequest;
     try {
-      const response: OrderEntry = await axios.post(
+      const response: AxiosResponse<OrderEntry> = await axios.post(
         this.baseURL + "/order/calculate",
         payload
       );
-      return response;
+      return response.data;
     } catch (e) {
       throw e;
     }
@@ -98,10 +98,10 @@ class EcwidCart extends RouteConfig {
     id: number;
   }): Promise<ConvertedOrderPayload> {
     try {
-      const response: ConvertedOrderPayload = await axios.post(
+      const response: AxiosResponse<ConvertedOrderPayload> = await axios.post(
         this.baseURL + "/carts/" + id + "/place"
       );
-      return response;
+      return response.data;
     } catch (e) {
       throw e;
     }

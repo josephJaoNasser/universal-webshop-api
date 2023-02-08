@@ -22,7 +22,7 @@
 - **Search for a product** : 
   - ```/products/search?keyword={keyword}```
 - **Filter products** : 
-  - ```/products/filter?{queries}``` (refer to the API docs for the list of queries)
+  - ```/products/filter?{queries}``` (refer to the API docs of your chosen webshop for the list of queries)
 - **Get single product** : 
   - ```/products/{id}```
 
@@ -32,12 +32,13 @@ Below is a typescript definion of the expected response along with their types.
 
 ```typescript
 interface StandardizedProduct {
-  id: string | number;
+  id?: string; // id defined by the UTD database (not yet implemented)
+  original_id: string | number; // the original product id as defined from the source webshop
   sku: string;
   name: string;
   url: string;
   description: string;
-  translation?s: Translations // type is defined below;
+  translations?: Translations; // type is defined below;
   short_description: string;
   current_price: number;
   regular_price: number;
@@ -109,9 +110,9 @@ interface MultipleProducts {
 ### Routes
 
 - **Get all categories** : 
-  - ```/categories``` (refer to the API docs for the list of queries)
+  - ```/categories``` (refer to the API docs of your chosen webshop for the list of queries)
 - **Get category by path** : 
-  - ```/categories/path?path={path}&delimiter={delimiter}``` (refer to the API for additional queries)
+  - ```/categories/path?path={path}&delimiter={delimiter}``` (refer to the API docs of your chosen webshop for additional queries)
 - **Sort subcategories within a category** : 
   - ```/categories/sort?parentCategory={id}```
 - **Get single category** : 
@@ -123,7 +124,8 @@ Below is a typescript definion of the expected response along with their types.
 
 ```typescript
 interface StandardizedCategory {
-  id: string | number;
+  id?: string; // id defined by the UTD database (not yet implemented)
+  original_id: string | number; // the original category id as defined from the source webshop
   name: string;
   url: string;
   description: string;
@@ -161,3 +163,13 @@ interface MultipleCategories {
   items: StandardizedCategory[];
 }
 ```
+## Cart
+
+### Routes
+
+- **Get cart data by ID** : 
+  - ```/cart/{cartId}```
+
+### Response
+
+- This route has no standardized response yet. Only the Ecwid API is supported for now. Please refer to the Ecwid API docs for the response
