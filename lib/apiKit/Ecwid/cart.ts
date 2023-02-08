@@ -1,3 +1,4 @@
+import axios from "axios";
 import { EcwidConfig } from "./Ecwid";
 import RouteConfig from "./RouteConfig";
 import CartUpdateRequest from "./types/Cart/CartUpdateRequest";
@@ -8,8 +9,10 @@ export type ConvertedOrderPayload = {
   vendorOrderNumber: string;
 };
 
+type CartPayload = CartUpdateRequest | CalculateOrderRequest;
+
 class EcwidCart extends RouteConfig {
-  cartPayload?: CartUpdateRequest;
+  cartPayload?: CartPayload;
 
   constructor(baseUrl: string, config: EcwidConfig) {
     super(baseUrl, config);
@@ -20,7 +23,7 @@ class EcwidCart extends RouteConfig {
    * @description set the cart payload that will be used when sending requests to the API
    * @param cartPayload
    */
-  setCartPayload(cartPayload: CartUpdateRequest) {
+  setCartPayload(cartPayload: CartPayload) {
     this.cartPayload = cartPayload;
   }
 
@@ -28,18 +31,38 @@ class EcwidCart extends RouteConfig {
    * @method GET
    * @description get cart details using the specified cart id
    */
-  async getCart(): Promise<OrderEntry> {}
+  async getCart({ id }: { id: number }): Promise<OrderEntry> {
+    try {
+      const response: OrderEntry = await axios.post(
+        this.baseURL + "/carts/" + id
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 
   /**
    * @method PUT
-   * @description update cart details.
+   * @description Update the details of specific abandoned cart using its unique cart ID.
    * - Note: Please set the cart payload using ```setCartPayload()``` before calling
    */
-  async updateCart(): Promise<{ updateCount: number }> {
-    // do something with this.cartPayload
-    return {
-      updateCount: 1,
-    };
+  async updateCart({ id }: { id: number }): Promise<{ updateCount: number }> {
+    if (!this.cartPayload) {
+      throw new Error("Please set the cart payload");
+    }
+
+    const payload = this.cartPayload as CartUpdateRequest;
+
+    try {
+      const response: { updateCount: number } = await axios.post(
+        this.baseURL + "/carts/" + id + "/place",
+        payload
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
   }
 
   /**
@@ -48,19 +71,40 @@ class EcwidCart extends RouteConfig {
    *   - Please set the cart payload using ```setCartPayload()``` before calling
    *   - Requests to this endpoint don't create any new orders in the actual store
    */
-  async calculateOrderDetails(
-    payload: CalculateOrderRequest
-  ): Promise<OrderEntry> {}
+  async calculateOrderDetails(): Promise<OrderEntry> {
+    if (!this.cartPayload) {
+      throw new Error("Please set the cart payload");
+    }
+
+    const payload = this.cartPayload as CalculateOrderRequest;
+    try {
+      const response: OrderEntry = await axios.post(
+        this.baseURL + "/order/calculate",
+        payload
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 
   /**
    * @description Converts the abandoned cart into a completed order in an Ecwid store.
    * @returns the order number and the vendor's order number
    */
-  async convertCartToOrder(): Promise<ConvertedOrderPayload> {
-    return {
-      orderNumber: 123,
-      vendorOrderNumber: "",
-    };
+  async convertCartToOrder({
+    id,
+  }: {
+    id: number;
+  }): Promise<ConvertedOrderPayload> {
+    try {
+      const response: ConvertedOrderPayload = await axios.post(
+        this.baseURL + "/carts/" + id + "/place"
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

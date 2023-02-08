@@ -1,3 +1,4 @@
+import EcwidCart from "./cart";
 import EcwidCategories from "./categories";
 import EcwidProducts from "./products";
 
@@ -14,6 +15,7 @@ class EcwidApi {
   config: EcwidConfig;
   Products: EcwidProducts;
   Categories: EcwidCategories;
+  Cart: EcwidCart
 
   constructor(storeID: number, token: string) {
     this.storeID = storeID;
@@ -26,6 +28,7 @@ class EcwidApi {
     };
     this.Products = new EcwidProducts(this.baseURL, this.config);
     this.Categories = new EcwidCategories(this.baseURL, this.config);
+    this.Cart = new EcwidCart(this.baseURL, this.config)
   }
 
   private initToken(token: string) {

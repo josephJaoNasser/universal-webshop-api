@@ -11,6 +11,7 @@ export interface Params {
   storeInfo: StoreInfo;
   id?: string | number;
   queries?: any;
+  payload?: any;
 }
 
 export default {
