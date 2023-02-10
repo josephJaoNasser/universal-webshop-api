@@ -1,12 +1,17 @@
-import { AxiosError } from "axios";
 import express from "express";
-import { Params } from "@/controllers";
-import verifyStore from "../middleware/verifyStore";
 
 const router = express.Router();
 
 router.post("/api/webhook", async (req, res) => {
-  
-})
+  const source = req.headers["x-webshop-source"];
+  const token = req.headers["x-webshop-token"];
 
-export default router
+  
+  try {
+  } catch (e) {
+    console.log(e);
+    return res.status(200).send();
+  }
+});
+
+export default router;

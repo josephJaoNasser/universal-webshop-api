@@ -6,9 +6,15 @@ dotenv.config();
 
 // ==== MIDDLEWARE ==== //
 import bodyParser from "body-parser";
+import cors from "cors";
+
+const corsOptions = {
+  origin: true,
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 // ==== SERVER CONNECTION TEST ==== //
 import ping from "./routes/ping";
@@ -24,8 +30,8 @@ app.get("/", (req, res) => {
 });
 
 // ==== ROUTES ==== //
-import categories from "./routes/categories"
-import products from "./routes/products"
+import categories from "./routes/categories";
+import products from "./routes/products";
 
 app.use(categories);
 app.use(products);
