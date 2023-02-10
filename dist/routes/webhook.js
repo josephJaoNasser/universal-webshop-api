@@ -18,6 +18,7 @@ router.post("/api/webhook", (req, res) => __awaiter(void 0, void 0, void 0, func
     const source = req.headers["x-webshop-source"];
     const token = req.headers["x-webshop-token"];
     try {
+        return res.status(200).send();
     }
     catch (e) {
         console.log(e);
