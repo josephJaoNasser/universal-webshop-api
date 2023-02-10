@@ -32,9 +32,13 @@ app.get("/", (req, res) => {
 // ==== ROUTES ==== //
 import categories from "./routes/categories";
 import products from "./routes/products";
+import cart from "./routes/cart";
+import webhook from "./routes/webhook";
 
 app.use(categories);
 app.use(products);
+app.use(webhook);
+app.use(cart);
 
 // ==== SERVER START ==== //
 const port = process.env.PORT || 3210;

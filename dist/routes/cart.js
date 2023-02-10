@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const verifyStore_1 = __importDefault(require("../middleware/verifyStore"));
-const cartControllers_1 = __importDefault(require("@/controllers/cartControllers"));
+const cartControllers_1 = __importDefault(require("../controllers/cartControllers"));
 const router = express_1.default.Router();
 router.get("/api/:storeId/cart/:cartId", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
