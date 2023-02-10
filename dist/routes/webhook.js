@@ -18,11 +18,14 @@ router.post("/api/webhook", (req, res) => __awaiter(void 0, void 0, void 0, func
     const source = req.headers["x-webshop-source"];
     const token = req.headers["x-webshop-token"];
     try {
-        return res.status(200).send();
+        console.log("A webshop has connected to the webhook");
+        console.log(source);
+        console.log({ body: req.body });
+        return res.status(200).send("Webhook has been executed");
     }
     catch (e) {
         console.log(e);
-        return res.status(200).send();
+        return res.status(200).send("Webhook has failed");
     }
 }));
 exports.default = router;
