@@ -21,7 +21,7 @@ function verifyStore(req, res, next) {
         next();
     })
         .catch((err) => {
-        console.log(err);
+        console.error({ err });
         return res.status(404).send("Store not found");
     });
 }

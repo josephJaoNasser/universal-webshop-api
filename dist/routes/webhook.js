@@ -24,7 +24,7 @@ router.post("/api/webhook", (req, res) => __awaiter(void 0, void 0, void 0, func
         return res.status(200).send("Webhook has been executed");
     }
     catch (e) {
-        console.log(e);
+        console.error({ err: e });
         return res.status(200).send("Webhook has failed");
     }
 }));

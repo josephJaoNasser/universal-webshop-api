@@ -28,7 +28,7 @@ router.get("/api/:storeId/categories", verifyStore, async (req, res) => {
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
-    console.log({ err });
+    console.error({ err });
     return res
       .status(err.response?.status || 404)
       .send(err.response?.data || "Error when fetching categories");
@@ -56,7 +56,7 @@ router.get("/api/:storeId/categories/path", verifyStore, async (req, res) => {
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
-    console.log({ err });
+    console.error({ err });
     return res
       .status(err.response?.status || 404)
       .send(err.response?.data || "Error when fetching categories");
@@ -84,7 +84,7 @@ router.get("/api/:storeId/categories/sort", verifyStore, async (req, res) => {
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
-    console.log({ err });
+    console.error({ err });
     return res
       .status(err.response?.status || 404)
       .send(err.response?.data || "Error when fetching categories");
@@ -112,7 +112,7 @@ router.get("/api/:storeId/categories/:id", verifyStore, async (req, res) => {
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
-    console.log({ err });
+    console.error({ err });
     return res
       .status(err.response?.status || 404)
       .send(err.response?.data || "Error when fetching categories");

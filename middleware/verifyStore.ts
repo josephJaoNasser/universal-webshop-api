@@ -19,7 +19,7 @@ function verifyStore(req: Request, res: Response, next: NextFunction) {
       next();
     })
     .catch((err) => {
-      console.log(err);
+      console.error({ err });
       return res.status(404).send("Store not found");
     });
 }

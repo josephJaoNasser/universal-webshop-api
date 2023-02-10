@@ -35,7 +35,7 @@ router.get("/api/:storeId/categories", verifyStore_1.default, (req, res) => __aw
     }
     catch (e) {
         const err = e;
-        console.log({ err });
+        console.error({ err });
         return res
             .status(((_a = err.response) === null || _a === void 0 ? void 0 : _a.status) || 404)
             .send(((_b = err.response) === null || _b === void 0 ? void 0 : _b.data) || "Error when fetching categories");
@@ -60,7 +60,7 @@ router.get("/api/:storeId/categories/path", verifyStore_1.default, (req, res) =>
     }
     catch (e) {
         const err = e;
-        console.log({ err });
+        console.error({ err });
         return res
             .status(((_c = err.response) === null || _c === void 0 ? void 0 : _c.status) || 404)
             .send(((_d = err.response) === null || _d === void 0 ? void 0 : _d.data) || "Error when fetching categories");
@@ -85,7 +85,7 @@ router.get("/api/:storeId/categories/sort", verifyStore_1.default, (req, res) =>
     }
     catch (e) {
         const err = e;
-        console.log({ err });
+        console.error({ err });
         return res
             .status(((_e = err.response) === null || _e === void 0 ? void 0 : _e.status) || 404)
             .send(((_f = err.response) === null || _f === void 0 ? void 0 : _f.data) || "Error when fetching categories");
@@ -110,7 +110,7 @@ router.get("/api/:storeId/categories/:id", verifyStore_1.default, (req, res) => 
     }
     catch (e) {
         const err = e;
-        console.log({ err });
+        console.error({ err });
         return res
             .status(((_g = err.response) === null || _g === void 0 ? void 0 : _g.status) || 404)
             .send(((_h = err.response) === null || _h === void 0 ? void 0 : _h.data) || "Error when fetching categories");

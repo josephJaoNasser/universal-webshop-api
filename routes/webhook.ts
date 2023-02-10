@@ -12,7 +12,7 @@ router.post("/api/webhook", async (req, res) => {
     console.log({ body: req.body });
     return res.status(200).send("Webhook has been executed");
   } catch (e) {
-    console.log(e);
+    console.error({ err: e });
     return res.status(200).send("Webhook has failed");
   }
 });

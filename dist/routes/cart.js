@@ -32,7 +32,7 @@ router.get("/api/:storeId/cart/:cartId", verifyStore_1.default, (req, res) => __
     }
     catch (e) {
         const err = e;
-        console.log({ err });
+        console.error({ err });
         return res
             .status(((_a = err.response) === null || _a === void 0 ? void 0 : _a.status) || 404)
             .send(((_b = err.response) === null || _b === void 0 ? void 0 : _b.data) || "Error when fetching cart data");

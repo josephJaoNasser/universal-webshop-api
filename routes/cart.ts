@@ -22,7 +22,7 @@ router.get("/api/:storeId/cart/:cartId", verifyStore, async (req, res) => {
     return res.status(200).send(data);
   } catch (e: any) {
     const err: AxiosError = e;
-    console.log({ err });
+    console.error({ err });
     return res
       .status(err.response?.status || 404)
       .send(err.response?.data || "Error when fetching cart data");
