@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Ecwid_1 = __importDefault(require("@/lib/apiKit/Ecwid"));
+const Ecwid_1 = __importDefault(require("../../lib/apiKit/Ecwid"));
 function ecwidHandler({ method, credentials, storeInfo, queries, id, }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!credentials.token) {
