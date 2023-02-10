@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
 import express from "express";
 import { Params } from "@/controllers";
-import getStoreInfo from "../middleware/getStoreInfo";
+import verifyStore from "../middleware/verifyStore";
 import cartControllers from "@/controllers/cartControllers";
 
 const router = express.Router();
 
-router.get("/api/:storeId/cart/:cartId", getStoreInfo, async (req, res) => {
+router.get("/api/:storeId/cart/:cartId", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
