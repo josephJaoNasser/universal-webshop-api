@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import express from "express";
 import { Params } from "@/controllers";
-import getStoreInfo from "../middleware/getStoreInfo";
+import verifyStore from "../middleware/verifyStore";
 import StandardizedCategory from "../lib/types/StandardizedCategory";
 import categoryControllers from "@/controllers/categoryControllers";
 
@@ -11,7 +11,7 @@ const router = express.Router();
  * @method get
  * @desc get all categories
  */
-router.get("/api/:storeId/categories", getStoreInfo, async (req, res) => {
+router.get("/api/:storeId/categories", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -39,7 +39,7 @@ router.get("/api/:storeId/categories", getStoreInfo, async (req, res) => {
  * @method get
  * @desc get categories by category path
  */
-router.get("/api/:storeId/categories/path", getStoreInfo, async (req, res) => {
+router.get("/api/:storeId/categories/path", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -67,7 +67,7 @@ router.get("/api/:storeId/categories/path", getStoreInfo, async (req, res) => {
  * @method get
  * @desc get category order
  */
-router.get("/api/:storeId/categories/sort", getStoreInfo, async (req, res) => {
+router.get("/api/:storeId/categories/sort", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -95,7 +95,7 @@ router.get("/api/:storeId/categories/sort", getStoreInfo, async (req, res) => {
  * @method get
  * @desc get categories by id
  */
-router.get("/api/:storeId/categories/:id", getStoreInfo, async (req, res) => {
+router.get("/api/:storeId/categories/:id", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
