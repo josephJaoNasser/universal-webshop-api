@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import getStoreInfo from "@/lib/getStoreInfo";
 
 /**
+<<<<<<< HEAD
  * @description verify and get store data that's sent with the request. The store info is stored in req["store_info"]
+=======
+ * @description get store data from database. The store info is stored in req["store_info"]
+>>>>>>> dfb36dc5ad06873dde78d7b64d21f4c2b0778c65
  */
 function verifyStore(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.replace("Bearer ", "");
