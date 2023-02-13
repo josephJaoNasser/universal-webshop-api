@@ -7,19 +7,18 @@ import getStoreInfo from "@/lib/getStoreInfo";
 function verifyStore(req: Request, res: Response, next: NextFunction) {
   const token = (req.headers.authorization?.replace("Bearer ", "") ||
     req.query.token) as string;
-    
-  console.log({
-    token,
-    qtoken: req.query.token,
-    authHeader: req.headers.authorization,
-  });
 
   getStoreInfo({ id: req.params.storeId, token })
     .then((storeInfo) => {
       if (token !== storeInfo.token) {
         return res
           .status(403)
-          .send("You are not allowed to access this store's data.");
+          .send("You are not allowed to access this store's data.")
+          .json({
+            token,
+            qtoken: req.query.token,
+            authHeader: req.headers.authorization,
+          });
       }
 
       req["store_info"] = storeInfo;
