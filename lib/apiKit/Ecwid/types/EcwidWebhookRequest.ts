@@ -1,4 +1,4 @@
-type EventCategory =
+export type EcwidEventCategory =
   | "unfinished_order"
   | "order"
   | "product"
@@ -9,15 +9,15 @@ type EventCategory =
   | "customer"
   | "invoice";
 
-type EventAction = "created" | "updated" | "deleted";
-type Event = `${EventCategory}.${EventAction}`;
+export type EcwidEventAction = "created" | "updated" | "deleted";
+type EcwidEvent = `${EcwidEventCategory}.${EcwidEventAction}`;
 
 interface EcwidWebhookRequest {
   eventId: string;
   eventCreated: number;
   storeId: number;
   entityId: number; //order number, category id, product id, etc ...
-  eventType: Event;
+  eventType: EcwidEvent;
   data?: {
     [key: string]: any;
   };

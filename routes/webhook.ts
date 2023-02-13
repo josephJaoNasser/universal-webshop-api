@@ -1,4 +1,5 @@
 import express from "express";
+import webhookControllers from "@/controllers/webhookControllers";
 
 const router = express.Router();
 
@@ -7,9 +8,7 @@ router.post("/api/webhook", async (req, res) => {
   const token = req.headers["x-webshop-token"];
 
   try {
-    console.log("A webshop has connected to the webhook");
-    console.log(source);
-    console.log({ body: req.body });
+    await webhookControllers[source as string](req, token);
     return res.status(200).send("Webhook has been executed");
   } catch (e) {
     console.error({ err: e });

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.ts",
+    "dev.dist": "nodemon ./dist/index.js",
     "build": "rimraf dist && tsc && tsc-alias",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
