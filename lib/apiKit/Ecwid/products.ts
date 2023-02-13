@@ -9,9 +9,20 @@ class EcwidProducts extends RouteConfig {
   /**
    * @description get all products
    */
-  async getAll(): Promise<StandardMultiItemResponse<StandardizedProduct>> {
+  async getAll({
+    queries,
+  }): Promise<StandardMultiItemResponse<StandardizedProduct>> {
+    const toParse = {
+      ...(queries.limit && { limit: queries.limit }),
+      ...(queries.offset && { offset: queries.offset }),
+    };
+
+    let filterParams = new URLSearchParams(toParse).toString();
+
+    if (filterParams.length) filterParams = "?" + filterParams;
+
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
-      await axios.get(this.baseURL + "/products", this.config);
+      await axios.get(this.baseURL + "/products" + filterParams, this.config);
 
     return EcwidTranslator.Product.translateMultiple(res.data);
   }
@@ -47,7 +58,6 @@ class EcwidProducts extends RouteConfig {
     queries,
   }): Promise<StandardMultiItemResponse<StandardizedProduct>> {
     const filterParams = new URLSearchParams(queries).toString();
-    console.log(this.baseURL + "/products?" + filterParams);
     const res: AxiosResponse<EcwidMultiItemResponse<EcwidProductType>> =
       await axios.get(this.baseURL + "/products?" + filterParams, this.config);
 
