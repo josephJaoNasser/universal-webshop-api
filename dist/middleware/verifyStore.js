@@ -16,12 +16,7 @@ function verifyStore(req, res, next) {
         if (token !== storeInfo.token) {
             return res
                 .status(403)
-                .json({
-                msg: "You are not allowed to access this store's data.",
-                token,
-                qtoken: req.query.token,
-                authHeader: req.headers.authorization,
-            });
+                .send("You are not allowed to access this store's data.");
         }
         req["store_info"] = storeInfo;
         next();
