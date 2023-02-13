@@ -21,7 +21,7 @@ export default async function getStoreInfo({
   };
 
   /** change this condition, if !storeInfo */
-  if (id != "1" || (token !== "asd123456xyz" && storeSource !== "ecwid")) {
+  if (id != "1" && token !== "asd123456xyz" && storeSource !== "ecwid") {
     throw new Error("Store does not exist");
   }
 
