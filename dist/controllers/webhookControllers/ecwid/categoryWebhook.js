@@ -13,11 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Ecwid_1 = __importDefault(require("../../../lib/apiKit/Ecwid"));
-const getStoreInfo_1 = __importDefault(require("../../../lib/getStoreInfo"));
-function ecwidCategoryWebhook(webhookRequest, token) {
+function ecwidCategoryWebhook(webhookRequest, storeInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const storeInfo = yield (0, getStoreInfo_1.default)(webhookRequest.storeId, token);
             const Ecwid = new Ecwid_1.default(storeInfo.storeId, storeInfo.credentials.token);
             const updatedOrCreatedCategory = yield Ecwid.Categories.getById({
                 id: webhookRequest.entityId,

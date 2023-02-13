@@ -10,12 +10,15 @@ const handlers = {
   category: categoryWebhookHandler,
 };
 
-export default async function handleEcwidWebhook(req: Request, token: string) {
+export default async function handleEcwidWebhook(
+  req: Request,
+  storeInfo: StoreInfo
+) {
   const webhookBody = req.body as EcwidWebhookRequest;
   const handlerType = webhookBody.eventType.split(".")[0] as EcwidEventCategory;
 
   try {
-    await handlers[handlerType](webhookBody, token);
+    await handlers[handlerType](webhookBody, storeInfo);
     return;
   } catch (e) {
     throw e;

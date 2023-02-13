@@ -1,8 +1,15 @@
-export default async function getStoreInfo(
+interface GetStoreParams {
+  id?: string;
+  token?: string;
+  storeSource?: string;
+}
+
+export default async function getStoreInfo({
   id,
-  token?: string
-): Promise<StoreInfo> {
-  /** Replace this with an API call */
+  token,
+  storeSource,
+}: GetStoreParams): Promise<StoreInfo> {
+  /** Replace this with an API call, either find by id or find by store source + token */
   const storeInfo: StoreInfo = {
     id: 1,
     storeId: process.env.ECWID_STORE_ID,
@@ -14,7 +21,7 @@ export default async function getStoreInfo(
   };
 
   /** change this condition, if !storeInfo */
-  if (id != 1) {
+  if (id != "1" || (token !== "asd123456xyz" && storeSource !== "ecwid")) {
     throw new Error("Store does not exist");
   }
 

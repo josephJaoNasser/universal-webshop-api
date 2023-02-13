@@ -2,14 +2,12 @@ import EcwidApi from "@/lib/apiKit/Ecwid";
 import EcwidWebhookRequest, {
   EcwidEventAction,
 } from "@/lib/apiKit/Ecwid/types/EcwidWebhookRequest";
-import getStoreInfo from "@/lib/getStoreInfo";
 
 export default async function ecwidCategoryWebhook(
   webhookRequest: EcwidWebhookRequest,
-  token: string
+  storeInfo: StoreInfo
 ) {
   try {
-    const storeInfo = await getStoreInfo(webhookRequest.storeId, token);
     const Ecwid = new EcwidApi(
       storeInfo.storeId as number,
       storeInfo.credentials.token as string

@@ -18,12 +18,12 @@ const handlers = {
     product: productWebhook_1.default,
     category: categoryWebhook_1.default,
 };
-function handleEcwidWebhook(req, token) {
+function handleEcwidWebhook(req, storeInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         const webhookBody = req.body;
         const handlerType = webhookBody.eventType.split(".")[0];
         try {
-            yield handlers[handlerType](webhookBody, token);
+            yield handlers[handlerType](webhookBody, storeInfo);
             return;
         }
         catch (e) {
