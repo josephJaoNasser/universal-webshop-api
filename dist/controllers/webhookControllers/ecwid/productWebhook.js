@@ -17,7 +17,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const Ecwid = new Ecwid_1.default(storeInfo.storeId, storeInfo.credentials.token);
-            const updatedOrCreatedProduct = yield Ecwid.Categories.getById({
+            const updatedOrCreatedProduct = yield Ecwid.Products.getById({
                 id: webhookRequest.entityId,
             });
             const action = webhookRequest.eventType.split(".")[1];

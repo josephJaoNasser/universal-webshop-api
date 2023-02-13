@@ -13,7 +13,7 @@ export default async function ecwidProductWebhook(
       storeInfo.credentials.token as string
     );
 
-    const updatedOrCreatedProduct = await Ecwid.Categories.getById({
+    const updatedOrCreatedProduct = await Ecwid.Products.getById({
       id: webhookRequest.entityId,
     });
 
