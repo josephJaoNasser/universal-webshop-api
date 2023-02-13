@@ -11,6 +11,7 @@ router.post("/api/webhook", async (req, res) => {
   try {
     const storeInfo = await getStoreInfo({ storeSource: source, token });
     await webhookControllers[source as string](req, storeInfo);
+    
     return res.status(200).send("Webhook has been executed");
   } catch (e) {
     console.error({ err: e });
