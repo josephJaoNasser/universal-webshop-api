@@ -22,18 +22,21 @@ export default async function ecwidCategoryWebhook(
     if (action === "created") {
       // do something when a category was created
       console.log("category created");
+      console.log({ updatedOrCreatedCategory });
       return;
     }
 
     if (action === "updated") {
       // do something when a category was updated
       console.log("category updated");
+      console.log({ updatedOrCreatedCategory });
       return;
     }
 
     if (action === "deleted") {
       // do something when a category was deleted
       console.log("category deleted");
+      console.log({ updatedOrCreatedCategory });
       return;
     }
   } catch (e) {

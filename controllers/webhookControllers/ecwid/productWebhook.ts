@@ -22,18 +22,21 @@ export default async function ecwidProductWebhook(
     if (action === "created") {
       // do something when a product was created
       console.log("product created");
+      console.log({ updatedOrCreatedProduct });
       return;
     }
 
     if (action === "updated") {
       // do something when a product was updated
       console.log("product updated");
+      console.log({ updatedOrCreatedProduct });
       return;
     }
 
     if (action === "deleted") {
       // do something when a product was deleted
       console.log("product deleted");
+      console.log({ updatedOrCreatedProduct });
       return;
     }
   } catch (e) {
