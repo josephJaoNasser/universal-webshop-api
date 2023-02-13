@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Woocommerce_1 = __importDefault(require("@/lib/apiKit/Woocommerce"));
+const Woocommerce_1 = __importDefault(require("../../lib/apiKit/Woocommerce"));
 function woocommerceHandler({ method, credentials, storeInfo, queries, id, }) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!credentials.consumer_key && !credentials.consumer_secret) {

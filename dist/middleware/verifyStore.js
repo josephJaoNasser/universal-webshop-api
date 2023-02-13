@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getStoreInfo_1 = __importDefault(require("@/lib/getStoreInfo"));
+const getStoreInfo_1 = __importDefault(require("../lib/getStoreInfo"));
 /**
  *  @description verify and get store data that's sent with the request. The store info is stored in req["store_info"]
  */
