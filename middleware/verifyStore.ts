@@ -7,7 +7,7 @@ import getStoreInfo from "@/lib/getStoreInfo";
 function verifyStore(req: Request, res: Response, next: NextFunction) {
   const token = (req.headers.authorization?.replace("Bearer ", "") ||
     req.query.token) as string;
-    
+
   console.log({
     token,
     qtoken: req.query.token,
