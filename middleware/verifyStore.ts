@@ -5,7 +5,7 @@ import getStoreInfo from "@/lib/getStoreInfo";
  *  @description verify and get store data that's sent with the request. The store info is stored in req["store_info"]
  */
 function verifyStore(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.replace("Bearer ", "") as string;
+  const token = req.headers.authorization || req.query.token?.replace("Bearer ", "") as string;
   getStoreInfo({ id: req.params.storeId, token })
     .then((storeInfo) => {
       if (token !== storeInfo.token) {
