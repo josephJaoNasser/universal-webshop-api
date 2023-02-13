@@ -1,13 +1,13 @@
 import EcwidApi from "@/lib/apiKit/Ecwid";
-import EcwidWebhookRequest, { EcwidEventAction } from "@/lib/apiKit/Ecwid/types/EcwidWebhookRequest";
-import getStoreInfo from "@/lib/getStoreInfo";
+import EcwidWebhookRequest, {
+  EcwidEventAction,
+} from "@/lib/apiKit/Ecwid/types/EcwidWebhookRequest";
 
 export default async function ecwidProductWebhook(
   webhookRequest: EcwidWebhookRequest,
-  token: string
+  storeInfo: StoreInfo
 ) {
   try {
-    const storeInfo = await getStoreInfo(webhookRequest.storeId, token);
     const Ecwid = new EcwidApi(
       storeInfo.storeId as number,
       storeInfo.credentials.token as string
@@ -21,19 +21,19 @@ export default async function ecwidProductWebhook(
 
     if (action === "created") {
       // do something when a product was created
-      console.log("product created")
+      console.log("product created");
       return;
     }
 
     if (action === "updated") {
       // do something when a product was updated
-      console.log("product updated")
+      console.log("product updated");
       return;
     }
 
     if (action === "deleted") {
       // do something when a product was deleted
-      console.log("product deleted")
+      console.log("product deleted");
       return;
     }
   } catch (e) {

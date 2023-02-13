@@ -10,7 +10,7 @@ const getStoreInfo_1 = __importDefault(require("../lib/getStoreInfo"));
 function verifyStore(req, res, next) {
     var _a;
     const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
-    (0, getStoreInfo_1.default)(req.params.storeId, token)
+    (0, getStoreInfo_1.default)({ id: req.params.storeId, token })
         .then((storeInfo) => {
         if (token !== storeInfo.token) {
             return res

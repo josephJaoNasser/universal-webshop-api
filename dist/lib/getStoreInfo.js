@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getStoreInfo(id, token) {
+function getStoreInfo({ id, token, storeSource, }) {
     return __awaiter(this, void 0, void 0, function* () {
-        /** Replace this with an API call */
+        /** Replace this with an API call, either find by id or find by store source + token */
         const storeInfo = {
             id: 1,
             storeId: process.env.ECWID_STORE_ID,
@@ -22,7 +22,7 @@ function getStoreInfo(id, token) {
             },
         };
         /** change this condition, if !storeInfo */
-        if (id != 1) {
+        if (id != "1" || (token !== "asd123456xyz" && storeSource !== "ecwid")) {
             throw new Error("Store does not exist");
         }
         if (!token || token !== storeInfo.token) {
