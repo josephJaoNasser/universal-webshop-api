@@ -2,6 +2,7 @@ import EcwidApi from "@/lib/apiKit/Ecwid";
 import EcwidWebhookRequest, {
   EcwidEventAction,
 } from "@/lib/apiKit/Ecwid/types/EcwidWebhookRequest";
+import { prune, stripHtml } from "@/lib/helpers/stripHtml";
 import axios from "axios";
 
 export default async function ecwidProductWebhook(
@@ -18,6 +19,21 @@ export default async function ecwidProductWebhook(
       id: webhookRequest.entityId,
     });
 
+    const fetchCategoriesRequest = updatedOrCreatedProduct.categories.map(
+      (catId) => Ecwid.Categories.getById({ id: catId })
+    );
+
+    const categories = await Promise.all(fetchCategoriesRequest);
+    const categoryNames = categories.map((catItem) => catItem.name);
+    categoryNames.unshift(storeInfo.categoryAggregator);
+
+    const metadata = {
+      title: updatedOrCreatedProduct.name,
+      description: stripHtml(prune(updatedOrCreatedProduct.description, 150)),
+      image: updatedOrCreatedProduct.images[0]?.src || "",
+      categories: categoryNames,
+    };
+
     const action = webhookRequest.eventType.split(".")[1] as EcwidEventAction;
 
     if (action === "created") {
@@ -29,13 +45,15 @@ export default async function ecwidProductWebhook(
         {
           syncId: updatedOrCreatedProduct.original_id,
           bloggerId: "2245555036362307138",
+          metadata,
           payload: {
             locationPageIdSource: storeInfo.locationPageIdSource,
             data: updatedOrCreatedProduct,
           },
         }
       );
-      console.log(utdRes.data);
+
+      console.log({ utd_response: utdRes.data });
       return;
     }
 
@@ -53,7 +71,7 @@ export default async function ecwidProductWebhook(
         }
       );
 
-      console.log(utdRes.data);
+      console.log({ utd_response: utdRes.data });
       return;
     }
 
@@ -68,7 +86,7 @@ export default async function ecwidProductWebhook(
           storeInfo.builder_token
       );
 
-      console.log(utdRes.data);
+      console.log({ utd_response: utdRes.data });
       return;
     }
   } catch (e) {

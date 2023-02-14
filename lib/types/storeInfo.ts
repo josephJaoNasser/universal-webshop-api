@@ -10,4 +10,5 @@ interface StoreInfo {
   };
   siteId: string;
   locationPageIdSource: number;
+  categoryAggregator: string;
 }

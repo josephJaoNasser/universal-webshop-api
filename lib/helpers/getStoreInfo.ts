@@ -22,14 +22,16 @@ export default async function getStoreInfo({
     },
     siteId: "456c4da0579ed36dd69fe5226cdf9ec3",
     locationPageIdSource: 18939,
+    categoryAggregator: "products",
   };
 
-  /** change this condition, if !storeInfo */
-  if(!id && !!storeId && !!storeSource) {
-    //fetch via storeId + storeSource
-    
+  if (!id && !!storeId && !!storeSource) {
+    //fetch via storeId + storeSource. Replace the the if statement below
+    if (storeId === process.env.ECWID_STORE_ID && storeSource === "ecwid")
+      return storeInfo;
   }
 
+  /** change this condition, if !storeInfo */
   if (id != "asd123xyz") {
     throw new Error("Store does not exist");
   }
