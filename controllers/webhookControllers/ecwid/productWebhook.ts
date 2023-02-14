@@ -47,7 +47,7 @@ export default async function ecwidProductWebhook(
       },
     };
 
-    if (action === "created") {
+    if (action !== "deleted") {
       const utdRes = await axios.post(
         "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
           storeInfo.siteId +
@@ -58,22 +58,7 @@ export default async function ecwidProductWebhook(
 
       console.log({ utd_response: utdRes.data });
       return;
-    }
-
-    if (action === "updated") {
-      const utdRes = await axios.patch(
-        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
-          storeInfo.siteId +
-          "?access_token=" +
-          storeInfo.builder_token,
-        body
-      );
-
-      console.log({ utd_response: utdRes.data });
-      return;
-    }
-
-    if (action === "deleted") {
+    } else {
       // do something when a product was deleted
       const utdRes = await axios.delete(
         "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
