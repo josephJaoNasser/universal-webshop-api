@@ -21,7 +21,7 @@ export default async function ecwidProductWebhook(
     const action = webhookRequest.eventType.split(".")[1] as EcwidEventAction;
 
     if (action === "created") {
-      await axios.post(
+      const utdRes = await axios.post(
         "https://www.uptodateconnect/site-builder/location-pages/" +
           storeInfo.siteId +
           "?access_token=" +
@@ -35,11 +35,12 @@ export default async function ecwidProductWebhook(
           },
         }
       );
+      console.log(utdRes.data);
       return;
     }
 
     if (action === "updated") {
-      await axios.patch(
+      const utdRes = await axios.patch(
         "https://www.uptodateconnect/site-builder/location-pages/" +
           storeInfo.siteId +
           "?access_token=" +
@@ -51,12 +52,14 @@ export default async function ecwidProductWebhook(
           },
         }
       );
+
+      console.log(utdRes.data);
       return;
     }
 
     if (action === "deleted") {
       // do something when a product was deleted
-      await axios.delete(
+      const utdRes = await axios.delete(
         "https://www.uptodateconnect/site-builder/location-pages/" +
           storeInfo.siteId +
           "?syncId=" +
@@ -64,6 +67,8 @@ export default async function ecwidProductWebhook(
           "&access_token=" +
           storeInfo.builder_token
       );
+
+      console.log(utdRes.data);
       return;
     }
   } catch (e) {

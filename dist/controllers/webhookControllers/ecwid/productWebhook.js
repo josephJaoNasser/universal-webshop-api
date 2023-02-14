@@ -23,7 +23,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
             });
             const action = webhookRequest.eventType.split(".")[1];
             if (action === "created") {
-                yield axios_1.default.post("https://www.uptodateconnect/site-builder/location-pages/" +
+                const utdRes = yield axios_1.default.post("https://www.uptodateconnect/site-builder/location-pages/" +
                     storeInfo.siteId +
                     "?access_token=" +
                     storeInfo.builder_token, {
@@ -34,10 +34,11 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                         data: updatedOrCreatedProduct,
                     },
                 });
+                console.log(utdRes.data);
                 return;
             }
             if (action === "updated") {
-                yield axios_1.default.patch("https://www.uptodateconnect/site-builder/location-pages/" +
+                const utdRes = yield axios_1.default.patch("https://www.uptodateconnect/site-builder/location-pages/" +
                     storeInfo.siteId +
                     "?access_token=" +
                     storeInfo.builder_token, {
@@ -46,16 +47,18 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                         data: updatedOrCreatedProduct,
                     },
                 });
+                console.log(utdRes.data);
                 return;
             }
             if (action === "deleted") {
                 // do something when a product was deleted
-                yield axios_1.default.delete("https://www.uptodateconnect/site-builder/location-pages/" +
+                const utdRes = yield axios_1.default.delete("https://www.uptodateconnect/site-builder/location-pages/" +
                     storeInfo.siteId +
                     "?syncId=" +
                     webhookRequest.entityId +
                     "&access_token=" +
                     storeInfo.builder_token);
+                console.log(utdRes.data);
                 return;
             }
         }
