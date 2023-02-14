@@ -48,6 +48,7 @@ export default async function ecwidProductWebhook(
           metadata,
           payload: {
             locationPageIdSource: storeInfo.locationPageIdSource,
+            name: updatedOrCreatedProduct.name, // this will define the page name upon publishing
             data: updatedOrCreatedProduct,
           },
         }
