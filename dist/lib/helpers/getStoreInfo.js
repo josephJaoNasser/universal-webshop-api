@@ -9,26 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function getStoreInfo({ id, token, storeSource, }) {
+function getStoreInfo({ id, storeId, storeSource, }) {
     return __awaiter(this, void 0, void 0, function* () {
         /** Replace this with an API call, either find by id or find by store source + token */
         const storeInfo = {
             id: 1,
+            encryptedId: "asd123xyz",
             storeId: process.env.ECWID_STORE_ID,
             source: "ecwid",
-            token: "asd123456xyz",
+            builder_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzgsImlhdCI6MTY3NjM2MzMyMiwiZXhwIjoxNjc4OTU1MzIyfQ.1yQYT8xrtMbDwT4vygXeCShLwgd94AD6lXwGd5wFkL4",
             credentials: {
                 token: process.env.ECWID_TOKEN,
             },
+            siteId: "456c4da0579ed36dd69fe5226cdf9ec3",
+            locationPageIdSource: 18939,
         };
         /** change this condition, if !storeInfo */
-        if (id != "1" && token !== "asd123456xyz" && storeSource !== "ecwid") {
+        if (id != "asd123xyz") {
             throw new Error("Store does not exist");
-        }
-        if (!token || token !== storeInfo.token) {
-            storeInfo.token = "";
-            storeInfo.credentials = {};
-            return storeInfo;
         }
         return storeInfo;
     });

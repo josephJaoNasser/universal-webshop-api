@@ -14,13 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const webhookControllers_1 = __importDefault(require("../controllers/webhookControllers"));
-const getStoreInfo_1 = __importDefault(require("../lib/getStoreInfo"));
+const getStoreInfo_1 = __importDefault(require("../lib/helpers/getStoreInfo"));
 const router = express_1.default.Router();
 router.post("/api/webhook", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const source = req.headers["x-webshop-source"];
-    const token = req.headers["x-webshop-token"];
+    // const token = req.headers["x-webshop-token"] as string;
     try {
-        const storeInfo = yield (0, getStoreInfo_1.default)({ storeSource: source, token });
+        const storeInfo = yield (0, getStoreInfo_1.default)({
+            id: "asd123xyz",
+            storeSource: source,
+        });
         yield webhookControllers_1.default[source](req, storeInfo);
         return res.status(200).send("Webhook has been executed");
     }

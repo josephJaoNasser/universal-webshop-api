@@ -2,6 +2,7 @@ import EcwidApi from "@/lib/apiKit/Ecwid";
 import EcwidWebhookRequest, {
   EcwidEventAction,
 } from "@/lib/apiKit/Ecwid/types/EcwidWebhookRequest";
+import axios from "axios";
 
 export default async function ecwidProductWebhook(
   webhookRequest: EcwidWebhookRequest,
@@ -20,23 +21,49 @@ export default async function ecwidProductWebhook(
     const action = webhookRequest.eventType.split(".")[1] as EcwidEventAction;
 
     if (action === "created") {
-      // do something when a product was created
-      console.log("product created");
-      console.log({ updatedOrCreatedProduct });
+      await axios.post(
+        "https://www.uptodateconnect/site-builder/location-pages/" +
+          storeInfo.siteId +
+          "?access_token=" +
+          storeInfo.builder_token,
+        {
+          syncId: updatedOrCreatedProduct.original_id,
+          bloggerId: "2245555036362307138",
+          locationPageIdSource: storeInfo.locationPageIdSource,
+          payload: {
+            data: updatedOrCreatedProduct,
+          },
+        }
+      );
       return;
     }
 
     if (action === "updated") {
-      // do something when a product was updated
-      console.log("product updated");
-      console.log({ updatedOrCreatedProduct });
+      await axios.patch(
+        "https://www.uptodateconnect/site-builder/location-pages/" +
+          storeInfo.siteId +
+          "?access_token=" +
+          storeInfo.builder_token,
+        {
+          syncId: updatedOrCreatedProduct.original_id,
+          payload: {
+            data: updatedOrCreatedProduct,
+          },
+        }
+      );
       return;
     }
 
     if (action === "deleted") {
       // do something when a product was deleted
-      console.log("product deleted");
-      console.log({ updatedOrCreatedProduct });
+      await axios.delete(
+        "https://www.uptodateconnect/site-builder/location-pages/" +
+          storeInfo.siteId +
+          "?syncId=" +
+          webhookRequest.entityId +
+          "&access_token=" +
+          storeInfo.builder_token
+      );
       return;
     }
   } catch (e) {

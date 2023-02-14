@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Ecwid_1 = __importDefault(require("../../../lib/apiKit/Ecwid"));
+const axios_1 = __importDefault(require("axios"));
 function ecwidProductWebhook(webhookRequest, storeInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -22,21 +23,39 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
             });
             const action = webhookRequest.eventType.split(".")[1];
             if (action === "created") {
-                // do something when a product was created
-                console.log("product created");
-                console.log({ updatedOrCreatedProduct });
+                yield axios_1.default.post("https://www.uptodateconnect/site-builder/location-pages/" +
+                    storeInfo.siteId +
+                    "?access_token=" +
+                    storeInfo.builder_token, {
+                    syncId: updatedOrCreatedProduct.original_id,
+                    bloggerId: "2245555036362307138",
+                    locationPageIdSource: storeInfo.locationPageIdSource,
+                    payload: {
+                        data: updatedOrCreatedProduct,
+                    },
+                });
                 return;
             }
             if (action === "updated") {
-                // do something when a product was updated
-                console.log("product updated");
-                console.log({ updatedOrCreatedProduct });
+                yield axios_1.default.patch("https://www.uptodateconnect/site-builder/location-pages/" +
+                    storeInfo.siteId +
+                    "?access_token=" +
+                    storeInfo.builder_token, {
+                    syncId: updatedOrCreatedProduct.original_id,
+                    payload: {
+                        data: updatedOrCreatedProduct,
+                    },
+                });
                 return;
             }
             if (action === "deleted") {
                 // do something when a product was deleted
-                console.log("product deleted");
-                console.log({ updatedOrCreatedProduct });
+                yield axios_1.default.delete("https://www.uptodateconnect/site-builder/location-pages/" +
+                    storeInfo.siteId +
+                    "?syncId=" +
+                    webhookRequest.entityId +
+                    "&access_token=" +
+                    storeInfo.builder_token);
                 return;
             }
         }

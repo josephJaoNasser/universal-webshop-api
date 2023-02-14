@@ -1,17 +1,21 @@
 import express from "express";
 import webhookControllers from "@/controllers/webhookControllers";
-import getStoreInfo from "@/lib/getStoreInfo";
+import getStoreInfo from "@/lib/helpers/getStoreInfo";
 
 const router = express.Router();
 
 router.post("/api/webhook", async (req, res) => {
   const source = req.headers["x-webshop-source"] as string;
-  const token = req.headers["x-webshop-token"] as string;
+  // const token = req.headers["x-webshop-token"] as string;
 
   try {
-    const storeInfo = await getStoreInfo({ storeSource: source, token });
-    await webhookControllers[source as string](req, storeInfo);
+    const storeInfo = await getStoreInfo({
+      id: "asd123xyz",
+      storeSource: source,
+    });
     
+    await webhookControllers[source as string](req, storeInfo);
+
     return res.status(200).send("Webhook has been executed");
   } catch (e) {
     console.error({ err: e });
