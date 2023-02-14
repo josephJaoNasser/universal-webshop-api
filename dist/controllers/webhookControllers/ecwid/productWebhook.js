@@ -34,20 +34,21 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                 categories: categoryNames,
             };
             const action = webhookRequest.eventType.split(".")[1];
+            const body = {
+                syncId: updatedOrCreatedProduct.original_id,
+                bloggerId: "8989560993773713237",
+                metadata,
+                payload: {
+                    locationPageIdSource: storeInfo.locationPageIdSource,
+                    name: updatedOrCreatedProduct.name,
+                    data: updatedOrCreatedProduct,
+                },
+            };
             if (action === "created") {
                 const utdRes = yield axios_1.default.post("https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
                     storeInfo.siteId +
                     "?access_token=" +
-                    storeInfo.builder_token, {
-                    syncId: updatedOrCreatedProduct.original_id,
-                    bloggerId: "8989560993773713237",
-                    metadata,
-                    payload: {
-                        locationPageIdSource: storeInfo.locationPageIdSource,
-                        name: updatedOrCreatedProduct.name,
-                        data: updatedOrCreatedProduct,
-                    },
-                });
+                    storeInfo.builder_token, body);
                 console.log({ utd_response: utdRes.data });
                 return;
             }
@@ -55,13 +56,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                 const utdRes = yield axios_1.default.patch("https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
                     storeInfo.siteId +
                     "?access_token=" +
-                    storeInfo.builder_token, {
-                    syncId: updatedOrCreatedProduct.original_id,
-                    metadata,
-                    payload: {
-                        data: updatedOrCreatedProduct,
-                    },
-                });
+                    storeInfo.builder_token, body);
                 console.log({ utd_response: utdRes.data });
                 return;
             }
