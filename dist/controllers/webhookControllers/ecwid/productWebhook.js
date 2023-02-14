@@ -19,6 +19,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const action = webhookRequest.eventType.split(".")[1];
             const Ecwid = new Ecwid_1.default(storeInfo.storeId, storeInfo.credentials.token);
             const updatedOrCreatedProduct = yield Ecwid.Products.getById({
                 id: webhookRequest.entityId,
@@ -27,17 +28,15 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
             const categories = yield Promise.all(fetchCategoriesRequest);
             const categoryNames = categories.map((catItem) => catItem.name);
             categoryNames.unshift(storeInfo.categoryAggregator);
-            const metadata = {
-                title: updatedOrCreatedProduct.name,
-                description: (0, stripHtml_1.stripHtml)((0, stripHtml_1.prune)(updatedOrCreatedProduct.description, 150)),
-                image: ((_a = updatedOrCreatedProduct.images[0]) === null || _a === void 0 ? void 0 : _a.src) || "",
-                categories: categoryNames,
-            };
-            const action = webhookRequest.eventType.split(".")[1];
             const body = {
                 syncId: updatedOrCreatedProduct.original_id,
                 bloggerId: "8989560993773713237",
-                metadata,
+                metadata: {
+                    title: updatedOrCreatedProduct.name,
+                    description: (0, stripHtml_1.stripHtml)((0, stripHtml_1.prune)(updatedOrCreatedProduct.description, 150)),
+                    image: ((_a = updatedOrCreatedProduct.images[0]) === null || _a === void 0 ? void 0 : _a.src) || "",
+                    categories: categoryNames,
+                },
                 payload: {
                     locationPageIdSource: storeInfo.locationPageIdSource,
                     name: updatedOrCreatedProduct.name,
@@ -50,7 +49,6 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     "?access_token=" +
                     storeInfo.builder_token, body);
                 console.log({ utd_response: utdRes.data });
-                return;
             }
             else {
                 // do something when a product was deleted
@@ -61,8 +59,8 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     "&access_token=" +
                     storeInfo.builder_token);
                 console.log({ utd_response: utdRes.data });
-                return;
             }
+            return;
         }
         catch (e) {
             throw e;
