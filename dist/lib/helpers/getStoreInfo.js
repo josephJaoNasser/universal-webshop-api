@@ -25,6 +25,9 @@ function getStoreInfo({ id, storeId, storeSource, }) {
             locationPageIdSource: 18939,
         };
         /** change this condition, if !storeInfo */
+        if (!id && !!storeId && !!storeSource) {
+            //fetch via storeId + storeSource
+        }
         if (id != "asd123xyz") {
             throw new Error("Store does not exist");
         }
