@@ -66,6 +66,7 @@ export default async function ecwidProductWebhook(
           storeInfo.builder_token,
         {
           syncId: updatedOrCreatedProduct.original_id,
+          metadata,
           payload: {
             data: updatedOrCreatedProduct,
           },

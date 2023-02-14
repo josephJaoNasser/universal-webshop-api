@@ -40,10 +40,11 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     "?access_token=" +
                     storeInfo.builder_token, {
                     syncId: updatedOrCreatedProduct.original_id,
-                    bloggerId: "2245555036362307138",
+                    bloggerId: "8989560993773713237",
                     metadata,
                     payload: {
                         locationPageIdSource: storeInfo.locationPageIdSource,
+                        name: updatedOrCreatedProduct.name,
                         data: updatedOrCreatedProduct,
                     },
                 });
@@ -56,6 +57,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     "?access_token=" +
                     storeInfo.builder_token, {
                     syncId: updatedOrCreatedProduct.original_id,
+                    metadata,
                     payload: {
                         data: updatedOrCreatedProduct,
                     },
