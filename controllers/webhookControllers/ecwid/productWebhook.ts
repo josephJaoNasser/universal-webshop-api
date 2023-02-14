@@ -44,7 +44,7 @@ export default async function ecwidProductWebhook(
           storeInfo.builder_token,
         {
           syncId: updatedOrCreatedProduct.original_id,
-          bloggerId: "2245555036362307138",
+          bloggerId: "8989560993773713237",
           metadata,
           payload: {
             locationPageIdSource: storeInfo.locationPageIdSource,
