@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.syncStoreProducts = void 0;
+exports.syncStoreCategories = exports.syncStoreProducts = void 0;
 const categoryControllers_1 = __importDefault(require("../../controllers/categoryControllers"));
 const productControllers_1 = __importDefault(require("../../controllers/productControllers"));
 const axios_1 = __importDefault(require("axios"));
@@ -85,6 +85,11 @@ exports.syncStoreProducts = syncStoreProducts;
 function syncStoreCategories(storeInfo) {
     return __awaiter(this, void 0, void 0, function* () { });
 }
+exports.syncStoreCategories = syncStoreCategories;
+/**
+ * @desc sync all of the current webshop's data with the UTD pages
+ * @param storeInfo
+ */
 function syncStore(storeInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         yield Promise.all([

@@ -85,8 +85,12 @@ export async function syncStoreProducts(storeInfo: StoreInfo) {
  * @desc sync the current webshop's category data with the UTD pages
  * @param storeInfo
  */
-async function syncStoreCategories(storeInfo: StoreInfo) {}
+export async function syncStoreCategories(storeInfo: StoreInfo) {}
 
+/**
+ * @desc sync all of the current webshop's data with the UTD pages
+ * @param storeInfo
+ */
 export default async function syncStore(storeInfo: StoreInfo) {
   await Promise.all([
     syncStoreCategories(storeInfo),
