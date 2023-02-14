@@ -12,6 +12,10 @@
     "authorization": "Bearer utd_db_proprietary_store_token"   
 }
 ```
+- Or send the token via query
+```
+https://api-base-url/api/{storeId}/{route}?token=utd_db_proprietary_store_token
+```
 
 ## Products
 
@@ -19,6 +23,9 @@
 
 - **Get all products** : 
   -  ```/products```
+  - queries:
+    - ```limit={number}``` : Limit the number of returned products
+    - ```offset={number}``` : Offset from the beginning of the returned items list
 - **Search for a product** : 
   - ```/products/search?keyword={keyword}```
 - **Filter products** : 
