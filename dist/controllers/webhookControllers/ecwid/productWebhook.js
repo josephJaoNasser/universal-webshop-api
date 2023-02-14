@@ -43,21 +43,16 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     data: updatedOrCreatedProduct,
                 },
             };
+            const url = "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
+                storeInfo.siteId +
+                "?access_token=" +
+                storeInfo.builder_token;
             if (action !== "deleted") {
-                const utdRes = yield axios_1.default.post("https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
-                    storeInfo.siteId +
-                    "?access_token=" +
-                    storeInfo.builder_token, body);
+                const utdRes = yield axios_1.default.post(url, body);
                 console.log({ utd_response: utdRes.data });
             }
             else {
-                // do something when a product was deleted
-                const utdRes = yield axios_1.default.delete("https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
-                    storeInfo.siteId +
-                    "?syncId=" +
-                    webhookRequest.entityId +
-                    "&access_token=" +
-                    storeInfo.builder_token);
+                const utdRes = yield axios_1.default.delete(url + "&syncId=" + webhookRequest.entityId);
                 console.log({ utd_response: utdRes.data });
             }
             return;

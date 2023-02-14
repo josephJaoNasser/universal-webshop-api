@@ -21,7 +21,7 @@ class EcwidProducts extends RouteConfig_1.default {
      */
     getAll({ queries, }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const toParse = Object.assign(Object.assign({}, (queries.limit && { limit: queries.limit })), (queries.offset && { offset: queries.offset }));
+            const toParse = Object.assign(Object.assign({}, ((queries === null || queries === void 0 ? void 0 : queries.limit) && { limit: queries.limit })), ((queries === null || queries === void 0 ? void 0 : queries.offset) && { offset: queries.offset }));
             let filterParams = new URLSearchParams(toParse).toString();
             if (filterParams.length)
                 filterParams = "?" + filterParams;

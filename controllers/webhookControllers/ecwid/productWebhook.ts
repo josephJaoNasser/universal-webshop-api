@@ -11,7 +11,7 @@ export default async function ecwidProductWebhook(
 ) {
   try {
     const action = webhookRequest.eventType.split(".")[1] as EcwidEventAction;
-    
+
     const Ecwid = new EcwidApi(
       storeInfo.storeId as number,
       storeInfo.credentials.token as string
@@ -45,25 +45,19 @@ export default async function ecwidProductWebhook(
       },
     };
 
+    const url =
+      "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
+      storeInfo.siteId +
+      "?access_token=" +
+      storeInfo.builder_token;
+
     if (action !== "deleted") {
-      const utdRes = await axios.post(
-        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
-          storeInfo.siteId +
-          "?access_token=" +
-          storeInfo.builder_token,
-        body
-      );
+      const utdRes = await axios.post(url, body);
 
       console.log({ utd_response: utdRes.data });
     } else {
-      // do something when a product was deleted
       const utdRes = await axios.delete(
-        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
-          storeInfo.siteId +
-          "?syncId=" +
-          webhookRequest.entityId +
-          "&access_token=" +
-          storeInfo.builder_token
+        url + "&syncId=" + webhookRequest.entityId
       );
 
       console.log({ utd_response: utdRes.data });

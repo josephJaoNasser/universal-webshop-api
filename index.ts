@@ -34,11 +34,13 @@ import categories from "./routes/categories";
 import products from "./routes/products";
 import cart from "./routes/cart";
 import webhook from "./routes/webhook";
+import sync from "./routes/sync";
 
 app.use(categories);
 app.use(products);
 app.use(webhook);
 app.use(cart);
+app.use(sync);
 
 // ==== SERVER START ==== //
 const port = process.env.PORT || 3210;

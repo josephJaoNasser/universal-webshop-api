@@ -13,8 +13,8 @@ class EcwidProducts extends RouteConfig {
     queries,
   }): Promise<StandardMultiItemResponse<StandardizedProduct>> {
     const toParse = {
-      ...(queries.limit && { limit: queries.limit }),
-      ...(queries.offset && { offset: queries.offset }),
+      ...(queries?.limit && { limit: queries.limit }),
+      ...(queries?.offset && { offset: queries.offset }),
     };
 
     let filterParams = new URLSearchParams(toParse).toString();

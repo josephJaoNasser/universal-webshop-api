@@ -29,10 +29,12 @@ const categories_1 = __importDefault(require("./routes/categories"));
 const products_1 = __importDefault(require("./routes/products"));
 const cart_1 = __importDefault(require("./routes/cart"));
 const webhook_1 = __importDefault(require("./routes/webhook"));
+const sync_1 = __importDefault(require("./routes/sync"));
 app.use(categories_1.default);
 app.use(products_1.default);
 app.use(webhook_1.default);
 app.use(cart_1.default);
+app.use(sync_1.default);
 // ==== SERVER START ==== //
 const port = process.env.PORT || 3210;
 app.listen(port, () => {
