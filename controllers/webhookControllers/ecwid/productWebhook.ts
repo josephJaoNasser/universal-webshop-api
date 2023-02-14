@@ -22,7 +22,7 @@ export default async function ecwidProductWebhook(
 
     if (action === "created") {
       const utdRes = await axios.post(
-        "https://www.uptodateconnect/site-builder/location-pages/" +
+        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
           storeInfo.siteId +
           "?access_token=" +
           storeInfo.builder_token,
@@ -41,7 +41,7 @@ export default async function ecwidProductWebhook(
 
     if (action === "updated") {
       const utdRes = await axios.patch(
-        "https://www.uptodateconnect/site-builder/location-pages/" +
+        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
           storeInfo.siteId +
           "?access_token=" +
           storeInfo.builder_token,
@@ -60,7 +60,7 @@ export default async function ecwidProductWebhook(
     if (action === "deleted") {
       // do something when a product was deleted
       const utdRes = await axios.delete(
-        "https://www.uptodateconnect/site-builder/location-pages/" +
+        "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
           storeInfo.siteId +
           "?syncId=" +
           webhookRequest.entityId +
