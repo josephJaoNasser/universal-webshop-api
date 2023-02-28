@@ -43,7 +43,7 @@ const router = express_1.default.Router();
  * @method get
  * @desc Sync everything. Products, Categories, etc.
  */
-router.get("/api/:storeId/sync", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/sync", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const storeInfo = req["store_info"];
     try {
@@ -61,7 +61,7 @@ router.get("/api/:storeId/sync", verifyStore_1.default, (req, res) => __awaiter(
  * @method get
  * @desc Sync products.
  */
-router.get("/api/:storeId/sync/products", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/sync/products", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c, _d;
     const storeInfo = req["store_info"];
     try {
@@ -79,7 +79,7 @@ router.get("/api/:storeId/sync/products", verifyStore_1.default, (req, res) => _
  * @method get
  * @desc Sync categories.
  */
-router.get("/api/:storeId/sync/categories", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/sync/categories", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _e, _f;
     const storeInfo = req["store_info"];
     try {

@@ -11,12 +11,12 @@ export default async function getStoreInfo({
   storeId,
   storeSource,
 }: GetStoreParams): Promise<StoreInfo> {
-  /** Replace this with an API call, either find by id or find by store source + token */
-
-  let storeInfo = shopInfoObj[id];
+  let storeInfo: StoreInfo = shopInfoObj[id as string];
   if (!storeInfo) {
     const res: AxiosResponse<any> = await axios.get(
-      process.env.SITE_BUILDER_API + `/shop/info?storeId=${id}&access_token=${process.env.SITE_BUILDER_TOKEN}`);
+      process.env.SITE_BUILDER_API +
+        `/shop/info?storeId=${id}&access_token=${process.env.SITE_BUILDER_TOKEN}`
+    );
 
     if (res.data.success) {
       const payload = res.data.payload;
