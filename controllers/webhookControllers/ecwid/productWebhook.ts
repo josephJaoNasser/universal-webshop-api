@@ -45,11 +45,10 @@ export default async function ecwidProductWebhook(
       },
     };
 
-    const url =
-      "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
+    const url = process.env.SITE_BUILDER_API +"/site-builder/location-pages/" +
       storeInfo.siteId +
       "?access_token=" +
-      storeInfo.builder_token;
+      storeInfo.builder_token + "&shop=1";
 
     if (action !== "deleted") {
       const utdRes = await axios.post(url, body);
