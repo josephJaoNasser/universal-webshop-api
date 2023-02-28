@@ -12,11 +12,7 @@ export default async function getStoreInfo({
   storeSource,
 }: GetStoreParams): Promise<StoreInfo> {
   /** Replace this with an API call, either find by id or find by store source + token */
-  console.log({
-    id,
-    storeId,
-    storeSource,
-  })
+
   let storeInfo = shopInfoObj[id];
   if (!storeInfo) {
     const res: AxiosResponse<number[]> = await axios.get(

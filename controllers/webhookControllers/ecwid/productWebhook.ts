@@ -31,7 +31,6 @@ export default async function ecwidProductWebhook(
 
     const body = {
       syncId: updatedOrCreatedProduct.original_id,
-      bloggerId: "8989560993773713237",
       metadata: {
         title: updatedOrCreatedProduct.name,
         description: stripHtml(prune(updatedOrCreatedProduct.description, 150)),
