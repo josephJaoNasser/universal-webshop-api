@@ -8,7 +8,7 @@ function verifyStore(req: Request, res: Response, next: NextFunction) {
   // const token = (req.headers.authorization?.replace("Bearer ", "") ||
   //   req.query.token) as string;
 
-  getStoreInfo({ id: req.params.storeId })
+  getStoreInfo({ id: req.query.storeId as string })
     .then((storeInfo) => {
       // if (token !== storeInfo.token) {
       //   return res

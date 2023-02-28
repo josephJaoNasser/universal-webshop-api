@@ -8,31 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __importDefault(require("axios"));
+const store_1 = require("./store");
 function getStoreInfo({ id, storeId, storeSource, }) {
     return __awaiter(this, void 0, void 0, function* () {
-        /** Replace this with an API call, either find by id or find by store source + token */
-        const storeInfo = {
-            id: 1,
-            encryptedId: "asd123xyz",
-            storeId: process.env.ECWID_STORE_ID,
-            source: "ecwid",
-            builder_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzgsImlhdCI6MTY3NjM2MzMyMiwiZXhwIjoxNjc4OTU1MzIyfQ.1yQYT8xrtMbDwT4vygXeCShLwgd94AD6lXwGd5wFkL4",
-            credentials: {
-                token: process.env.ECWID_TOKEN,
-            },
-            siteId: "456c4da0579ed36dd69fe5226cdf9ec3",
-            locationPageIdSource: 18939,
-            categoryAggregator: "products",
-        };
-        if (!id && !!storeId && !!storeSource) {
-            //fetch via storeId + storeSource. Replace the the if statement below
-            if (storeId === process.env.ECWID_STORE_ID && storeSource === "ecwid")
-                return storeInfo;
-        }
-        /** change this condition, if !storeInfo */
-        if (id != "asd123xyz") {
-            throw new Error("Store does not exist");
+        let storeInfo = store_1.shopInfoObj[id];
+        if (!storeInfo) {
+            const res = yield axios_1.default.get(process.env.SITE_BUILDER_API +
+                `/shop/info?storeId=${id}&access_token=${process.env.SITE_BUILDER_TOKEN}`);
+            if (res.data.success) {
+                const payload = res.data.payload;
+                store_1.shopInfoObj[payload.encryptedId] = payload;
+                storeInfo = payload;
+            }
+            else {
+                throw new Error("Store does not exist");
+            }
         }
         return storeInfo;
     });
