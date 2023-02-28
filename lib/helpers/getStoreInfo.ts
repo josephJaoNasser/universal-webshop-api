@@ -15,7 +15,7 @@ export default async function getStoreInfo({
 
   let storeInfo = shopInfoObj[id];
   if (!storeInfo) {
-    const res: AxiosResponse<number[]> = await axios.get(
+    const res: AxiosResponse<any> = await axios.get(
       process.env.SITE_BUILDER_API + `/shop/info?storeId=${id}&access_token=${process.env.SITE_BUILDER_TOKEN}`);
 
     if (res.data.success) {
