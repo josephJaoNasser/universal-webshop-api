@@ -20,7 +20,7 @@ const router = express_1.default.Router();
  * @method get
  * @desc get all products
  */
-router.get("/api/products", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/:storeId/products", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const storeInfo = req["store_info"];
     const payload = {
@@ -45,7 +45,7 @@ router.get("/api/products", verifyStore_1.default, (req, res) => __awaiter(void 
  * @method get
  * @desc search for a product by keyword/s
  */
-router.get("/api/products/search", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/:storeId/products/search", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c, _d;
     const storeInfo = req["store_info"];
     const payload = {
@@ -70,7 +70,7 @@ router.get("/api/products/search", verifyStore_1.default, (req, res) => __awaite
  * @method get
  * @desc filter products (see ecwid api docs)
  */
-router.get("/api/products/filter", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/:storeId/products/filter", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _e, _f;
     const storeInfo = req["store_info"];
     const payload = {
@@ -95,7 +95,7 @@ router.get("/api/products/filter", verifyStore_1.default, (req, res) => __awaite
  * @method get
  * @desc get a product by id
  */
-router.get("/api/products/:id", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/:storeId/products/:id", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _g, _h;
     const storeInfo = req["store_info"];
     const payload = {

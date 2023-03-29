@@ -11,7 +11,7 @@ const router = express.Router();
  * @method get
  * @desc get all products
  */
-router.get("/api/products", verifyStore, async (req, res) => {
+router.get("/api/:storeId/products", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -39,7 +39,7 @@ router.get("/api/products", verifyStore, async (req, res) => {
  * @method get
  * @desc search for a product by keyword/s
  */
-router.get("/api/products/search", verifyStore, async (req, res) => {
+router.get("/api/:storeId/products/search", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -67,7 +67,7 @@ router.get("/api/products/search", verifyStore, async (req, res) => {
  * @method get
  * @desc filter products (see ecwid api docs)
  */
-router.get("/api/products/filter", verifyStore, async (req, res) => {
+router.get("/api/:storeId/products/filter", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
@@ -95,7 +95,7 @@ router.get("/api/products/filter", verifyStore, async (req, res) => {
  * @method get
  * @desc get a product by id
  */
-router.get("/api/products/:id", verifyStore, async (req, res) => {
+router.get("/api/:storeId/products/:id", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {

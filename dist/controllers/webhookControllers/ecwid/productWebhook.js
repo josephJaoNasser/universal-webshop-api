@@ -30,6 +30,7 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
             categoryNames.unshift(storeInfo.categoryAggregator);
             const body = {
                 syncId: updatedOrCreatedProduct.original_id,
+                bloggerId: "8989560993773713237",
                 metadata: {
                     title: updatedOrCreatedProduct.name,
                     description: (0, stripHtml_1.stripHtml)((0, stripHtml_1.prune)(updatedOrCreatedProduct.description, 150)),
@@ -42,10 +43,10 @@ function ecwidProductWebhook(webhookRequest, storeInfo) {
                     data: updatedOrCreatedProduct,
                 },
             };
-            const url = process.env.SITE_BUILDER_API + "/site-builder/location-pages/" +
+            const url = "https://www.uptodateconnect.com/api/v1/site-builder/location-pages/" +
                 storeInfo.siteId +
                 "?access_token=" +
-                storeInfo.builder_token + "&shop=1";
+                storeInfo.builder_token;
             if (action !== "deleted") {
                 const utdRes = yield axios_1.default.post(url, body);
                 console.log({ utd_response: utdRes.data });

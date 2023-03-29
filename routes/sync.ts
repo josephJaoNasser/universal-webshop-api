@@ -8,7 +8,7 @@ const router = express.Router();
  * @method get
  * @desc Sync everything. Products, Categories, etc.
  */
-router.get("/api/sync", verifyStore, async (req, res) => {
+router.get("/api/:storeId/sync", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   try {
@@ -26,7 +26,7 @@ router.get("/api/sync", verifyStore, async (req, res) => {
  * @method get
  * @desc Sync products.
  */
-router.get("/api/sync/products", verifyStore, async (req, res) => {
+router.get("/api/:storeId/sync/products", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   try {
@@ -44,7 +44,7 @@ router.get("/api/sync/products", verifyStore, async (req, res) => {
  * @method get
  * @desc Sync categories.
  */
-router.get("/api/sync/categories", verifyStore, async (req, res) => {
+router.get("/api/:storeId/sync/categories", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   try {

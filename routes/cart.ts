@@ -6,7 +6,7 @@ import cartControllers from "@/controllers/cartControllers";
 
 const router = express.Router();
 
-router.get("/api/cart/:cartId", verifyStore, async (req, res) => {
+router.get("/api/:storeId/cart/:cartId", verifyStore, async (req, res) => {
   const storeInfo = req["store_info"] as StoreInfo;
 
   const payload: Params = {
