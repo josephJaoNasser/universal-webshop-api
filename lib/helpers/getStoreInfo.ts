@@ -1,40 +1,33 @@
+import axios, { Axios, AxiosResponse } from "axios";
+
 interface GetStoreParams {
   id?: string;
-  storeId?: string;
-  storeSource?: string;
+}
+
+interface StoreDBResponse {
+  success: boolean;
+  payload: StoreInfo;
 }
 
 export default async function getStoreInfo({
   id,
-  storeId,
-  storeSource,
 }: GetStoreParams): Promise<StoreInfo> {
   /** Replace this with an API call, either find by id or find by store source + token */
-  const storeInfo: StoreInfo = {
-    id: 1,
-    encryptedId: "asd123xyz",
-    storeId: process.env.ECWID_STORE_ID,
-    source: "ecwid",
-    builder_token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzgsImlhdCI6MTY3NjM2MzMyMiwiZXhwIjoxNjc4OTU1MzIyfQ.1yQYT8xrtMbDwT4vygXeCShLwgd94AD6lXwGd5wFkL4",
-    credentials: {
-      token: process.env.ECWID_TOKEN as string,
-    },
-    siteId: "456c4da0579ed36dd69fe5226cdf9ec3",
-    locationPageIdSource: 18939,
-    categoryAggregator: "products",
-  };
+  try {
+    const res: AxiosResponse<StoreDBResponse> = await axios.get(
+      `https://www.uptodateconnect.com/api/v1/shop/info?access_token=${process.env.UTD_SHOP_DB_TOKEN}&storeId=${id}`
+    );
 
-  if (!id && !!storeId && !!storeSource) {
-    //fetch via storeId + storeSource. Replace the the if statement below
-    if (storeId === process.env.ECWID_STORE_ID && storeSource === "ecwid")
-      return storeInfo;
+    const storeInfo = res.data.payload;
+
+    /** change this condition, if !storeInfo */
+    if (!storeInfo) {
+      throw new Error("Store does not exist");
+    }
+
+    return storeInfo;
+  } catch (err) {
+    console.log(err);
+    throw err;
   }
-
-  /** change this condition, if !storeInfo */
-  if (id != "asd123xyz") {
-    throw new Error("Store does not exist");
-  }
-
-  return storeInfo;
 }

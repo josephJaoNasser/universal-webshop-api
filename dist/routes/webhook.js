@@ -17,13 +17,14 @@ const webhookControllers_1 = __importDefault(require("../controllers/webhookCont
 const getStoreInfo_1 = __importDefault(require("../lib/helpers/getStoreInfo"));
 const router = express_1.default.Router();
 router.post("/api/webhook", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const source = req.headers["x-webshop-source"];
-    // const token = req.headers["x-webshop-token"] as string;
+    const encryptedId = req.headers["x-webshop-encryptedid"] ||
+        req.headers["x-webshop-encryptedId"] ||
+        req.headers["x-webshop-encrypted-id"];
     try {
         const storeInfo = yield (0, getStoreInfo_1.default)({
-            id: "asd123xyz",
-            storeSource: source,
+            id: encryptedId,
         });
+        const source = storeInfo.source; //req.headers["x-webshop-source"] as string;
         yield webhookControllers_1.default[source](req, storeInfo);
         return res.status(200).send("Webhook has been executed");
     }

@@ -8,33 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-function getStoreInfo({ id, storeId, storeSource, }) {
+const axios_1 = __importDefault(require("axios"));
+function getStoreInfo({ id, }) {
     return __awaiter(this, void 0, void 0, function* () {
         /** Replace this with an API call, either find by id or find by store source + token */
-        const storeInfo = {
-            id: 1,
-            encryptedId: "asd123xyz",
-            storeId: process.env.ECWID_STORE_ID,
-            source: "ecwid",
-            builder_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzgsImlhdCI6MTY3NjM2MzMyMiwiZXhwIjoxNjc4OTU1MzIyfQ.1yQYT8xrtMbDwT4vygXeCShLwgd94AD6lXwGd5wFkL4",
-            credentials: {
-                token: process.env.ECWID_TOKEN,
-            },
-            siteId: "456c4da0579ed36dd69fe5226cdf9ec3",
-            locationPageIdSource: 18939,
-            categoryAggregator: "products",
-        };
-        if (!id && !!storeId && !!storeSource) {
-            //fetch via storeId + storeSource. Replace the the if statement below
-            if (storeId === process.env.ECWID_STORE_ID && storeSource === "ecwid")
-                return storeInfo;
+        try {
+            const res = yield axios_1.default.get(`https://www.uptodateconnect.com/api/v1/shop/info?access_token=${process.env.UTD_SHOP_DB_TOKEN}&storeId=${id}`);
+            const storeInfo = res.data.payload;
+            /** change this condition, if !storeInfo */
+            if (!storeInfo) {
+                throw new Error("Store does not exist");
+            }
+            return storeInfo;
         }
-        /** change this condition, if !storeInfo */
-        if (id != "asd123xyz") {
-            throw new Error("Store does not exist");
+        catch (err) {
+            console.log(err);
+            throw err;
         }
-        return storeInfo;
     });
 }
 exports.default = getStoreInfo;
