@@ -20,7 +20,7 @@ const router = express_1.default.Router();
  * @method get
  * @desc get all categories
  */
-router.get("/api/:storeId/categories", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/categories", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const storeInfo = req["store_info"];
     const payload = {
@@ -45,7 +45,7 @@ router.get("/api/:storeId/categories", verifyStore_1.default, (req, res) => __aw
  * @method get
  * @desc get categories by category path
  */
-router.get("/api/:storeId/categories/path", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/categories/path", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c, _d;
     const storeInfo = req["store_info"];
     const payload = {
@@ -70,7 +70,7 @@ router.get("/api/:storeId/categories/path", verifyStore_1.default, (req, res) =>
  * @method get
  * @desc get category order
  */
-router.get("/api/:storeId/categories/sort", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/categories/sort", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _e, _f;
     const storeInfo = req["store_info"];
     const payload = {
@@ -95,7 +95,7 @@ router.get("/api/:storeId/categories/sort", verifyStore_1.default, (req, res) =>
  * @method get
  * @desc get categories by id
  */
-router.get("/api/:storeId/categories/:id", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/categories/:id", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _g, _h;
     const storeInfo = req["store_info"];
     const payload = {

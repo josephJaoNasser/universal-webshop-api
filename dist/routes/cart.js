@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const verifyStore_1 = __importDefault(require("../middleware/verifyStore"));
 const cartControllers_1 = __importDefault(require("../controllers/cartControllers"));
 const router = express_1.default.Router();
-router.get("/api/:storeId/cart/:cartId", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/cart/:cartId", verifyStore_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const storeInfo = req["store_info"];
     const payload = {
