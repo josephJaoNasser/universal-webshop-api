@@ -5,18 +5,6 @@
 - Refer to your respective webshop's API documentation for query parameters
 - to run locally, use ```npm run dev``` or ```yarn dev```
 
-## Authentication
-- Send the token via the headers
-``` json
-"headers": {
-    "authorization": "Bearer utd_db_proprietary_store_token"   
-}
-```
-- Or send the token via query
-```
-https://api-base-url/api/{storeId}/{route}?token=utd_db_proprietary_store_token
-```
-
 ## Products
 
 ### Routes
